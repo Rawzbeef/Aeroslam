@@ -14,7 +14,7 @@ public class Aeroport {
 	}
 
 	/**
-	 * @return the lesAvions
+	 * @return La Liste d'Avion
 	 */
 	public ArrayList<Avion> getLesAvions() {
 		return lesAvions;
@@ -25,6 +25,20 @@ public class Aeroport {
 	 */
 	public void setLesAvions(ArrayList<Avion> lesAvions) {
 		this.lesAvions = lesAvions;
+	}
+
+	public void ajouterAvion(int id, String nomA, int nbPlace) {
+		this.lesAvions.add(new Avion(id, nomA, nbPlace));
+	}
+
+	public void retirerAvion(int id) {
+		int i = 0;
+		while(i  < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() != id) {
+			i++;
+		}
+		if(i  < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() == id){
+			this.lesAvions.remove(i);
+		}
 	}
 
 }

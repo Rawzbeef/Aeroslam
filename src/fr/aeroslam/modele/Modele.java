@@ -80,16 +80,35 @@ public class Modele {
 		return lesAvions;
 	}
 
-	public static void ajouterAvion(String nomA, int nbPlace) {
+	public static int ajouterAvion(String nomA, int nbPlace) {
+		int id = 0;
 		connexionBD();
 		try {
-			statement = connexion.prepareStatement("INSERT INTO Avion (nomA, nbPlace) Values (?, ?);");
+			statement = connexion.prepareStatement("INSERT INTO Avion (nomA, nbPlace) Values (?, ?);", Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, nomA);
 			statement.setInt(2, nbPlace);
 			statement.executeUpdate();
+			resultat = statement.getGeneratedKeys();
+			if(resultat.next())
+				id = resultat.getInt(1);
+			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
 			System.out.println("L'ajout a échoué.");
+		}
+		deconnexionBD();
+		return id;
+	}
+	
+	public static void retirerAvion(int id) {
+		connexionBD();
+		try {
+			statement = connexion.prepareStatement("DELETE FROM `avion` WHERE codeA = ?;");
+			statement.setInt(1, id);
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("La suppression à échoué.");
 		}
 		deconnexionBD();
 	}
@@ -109,42 +128,5 @@ public class Modele {
 		}
 		deconnexionBD();
 		return nbAvion;
-	}
-	
-	/*
-	public static void ajouterContact(String nom, String prenom, String email, String commentaire) {
-		connexionBD();
-		try {
-			statement = connexion.createStatement();
-			statement.executeUpdate("INSERT INTO contact (Nom, Prenom, Email, Commentaire) Values ('"+nom+"', '"+prenom+"', '"+email+"', '"+commentaire+"');");
-			statement.close();
-		} catch (SQLException e) {
-			System.out.println("L'ajout a échoué.");
-		}
-		deconnexionBD();
-		
-	}
-	
-	public static ArrayList<Contact> getLesContacts() {
-		connexionBD();
-		ArrayList<Contact> lesContacts = new ArrayList<Contact>();
-		try {
-			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT * FROM Contact;");
-			while(resultat.next()) {
-				Contact contact = new Contact(resultat.getInt(1), resultat.getString(2), resultat.getString(3), resultat.getString(4), resultat.getString(5));
-				lesContacts.add(contact);
-			}
-			resultat.close();
-			statement.close();
-		} catch (SQLException e) {
-			System.out.println("La récupération a échoué.");
-		}
-		deconnexionBD();
-		return lesContacts;
-	}
-	*/	
-		
-		
-		
+	}		
 }

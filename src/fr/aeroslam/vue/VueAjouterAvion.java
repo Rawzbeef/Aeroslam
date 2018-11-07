@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import fr.aeroslam.controleur.action.ActionAjouterAvion;
+import fr.aeroslam.objet.Aeroport;
 
 @SuppressWarnings("serial")
 public class VueAjouterAvion extends JPanel {
@@ -22,7 +23,7 @@ public class VueAjouterAvion extends JPanel {
 	private JTextField jtfNbPlace;
 	private JButton jbAjouter;
 
-	public VueAjouterAvion(VueErreur vueErreur, Vue vue) {
+	public VueAjouterAvion(Aeroport aero, VueErreur vueErreur, Vue vue) {
 		this.jlNom = new JLabel("Nom :");
 		this.jtfNom = new JTextField();
 		this.jtfNom.setPreferredSize(new Dimension(150, 20));
@@ -32,7 +33,7 @@ public class VueAjouterAvion extends JPanel {
 		this.jtfNbPlace.setPreferredSize(new Dimension(150, 20));
 		
 		this.jbAjouter = new JButton("Ajouter");
-		this.jbAjouter.addActionListener(new ActionAjouterAvion(vue, this, vueErreur));
+		this.jbAjouter.addActionListener(new ActionAjouterAvion(aero, vue, this, vueErreur));
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

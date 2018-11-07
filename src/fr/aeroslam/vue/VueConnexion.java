@@ -32,16 +32,24 @@ public class VueConnexion extends JPanel {
 		this.vue = vue;
 		this.vueErreur = vueErreur;
 		
+		
 		this.jlIdentifiant = new JLabel("Identifiant :");
 		this.jtfIdentifiant = new JTextField();
 		this.jtfIdentifiant.setPreferredSize(new Dimension(150, 20));
+		
 		
 		this.jlMdp = new JLabel("Mot de passe :");
 		this.jtfMdp = new JPasswordField();
 		this.jtfMdp.setPreferredSize(new Dimension(150, 20));
 		
+		
 		this.jbConnexion = new JButton("Connexion");
-		this.jbConnexion.addActionListener(new ActionConnexion(this.aero, this.vue, this.vueErreur, this.jtfIdentifiant, this.jtfMdp));
+		
+		
+		ActionConnexion actionConnexion = new ActionConnexion(this.aero, this.vue, this.vueErreur, this.jtfIdentifiant, this.jtfMdp);
+		this.jtfIdentifiant.addKeyListener(actionConnexion);
+		this.jtfMdp.addKeyListener(actionConnexion);
+		this.jbConnexion.addActionListener(actionConnexion);
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

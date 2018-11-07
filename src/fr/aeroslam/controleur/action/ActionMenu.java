@@ -29,7 +29,7 @@ public class ActionMenu implements ActionListener {
 		switch(nomBouton) {
 		case "AjouterAvion":
 			vue.getContentPane().removeAll();
-			vue.getContentPane().add(new VueAjouterAvion(vueErreur, vue)).revalidate();
+			vue.getContentPane().add(new VueAjouterAvion(aero, vueErreur, vue)).revalidate();
 			break;
 		case "AfficherAvion":
 			vue.getContentPane().removeAll();
@@ -37,7 +37,7 @@ public class ActionMenu implements ActionListener {
 			break;
 		case "RetirerAvion":
 			vue.getContentPane().removeAll();
-			vue.getContentPane().add(new VueRetirerAvion(aero)).revalidate();
+			vue.getContentPane().add(new VueRetirerAvion(aero, vue)).revalidate();
 			break;
 		}
 	}
