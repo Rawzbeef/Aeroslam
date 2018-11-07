@@ -14,9 +14,10 @@ import fr.aeroslam.objet.Avion;
 
 @SuppressWarnings("serial")
 public class VueRetirerAvion extends JPanel {
-
+	
+	private JPanel jpRetirerAvion;
 	private JButton jbRetirerAvion;
-
+	
 	public VueRetirerAvion(Aeroport aero) {
 		ArrayList<Avion> lesAvions = aero.getLesAvions();
 		
