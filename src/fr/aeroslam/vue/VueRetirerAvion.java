@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import fr.aeroslam.controleur.action.ActionRetirerAvion;
 import fr.aeroslam.objet.Aeroport;
 import fr.aeroslam.objet.Avion;
 
@@ -28,7 +29,8 @@ public class VueRetirerAvion extends JPanel {
 		c.insets = new Insets(3, 3, 3, 3);
 		for(Avion avion : lesAvions) {
 			this.jbRetirerAvion = new JButton("" + avion.getCodeAvion());
-			this.jbRetirerAvion.setPreferredSize(new Dimension(50, 50));
+			this.jbRetirerAvion.addActionListener(new ActionRetirerAvion());
+			this.jbRetirerAvion.setPreferredSize(new Dimension(50, 25));
 			c.gridy = compteurY-1;
 			c.gridx = compteurX-1;
 			this.add(jbRetirerAvion, c);
@@ -39,8 +41,6 @@ public class VueRetirerAvion extends JPanel {
 			else {
 				compteurX++;
 			}
-			
 		}
 	}
-
 }
