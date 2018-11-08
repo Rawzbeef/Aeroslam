@@ -117,7 +117,7 @@ public class Modele {
 		connexionBD();
 		int nbAvion = 0;
 		try {
-			statement = connexion.prepareStatement("SELECT Count(codeA) FROM Avion");
+			statement = connexion.prepareStatement("SELECT Count(codeA) FROM Avion;");
 			resultat = statement.executeQuery();
 			resultat.next();
 			nbAvion = resultat.getInt(1);
