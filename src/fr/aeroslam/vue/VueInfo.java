@@ -6,16 +6,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class VueErreur extends JPanel {
+public class VueInfo extends JPanel {
 
 	private String text;
 	public static final int RED = 1;
 
-	public VueErreur() {
+	public VueInfo() {
 		this.text = "<html>";
 	}
 
-	public void addLabel(String string) {
+	public void addLabelErreur(String string) {
 		this.removeAll();
 		this.revalidate();
 		this.text +=  string + "<br>";
@@ -24,10 +24,19 @@ public class VueErreur extends JPanel {
 		this.add(label);
 	}
 	
-	public void removeErreur() {
+	public void addLabelValider(String string) {
+		this.removeAll();
+		this.revalidate();
+		this.text +=  string + "<br>";
+		JLabel label = new JLabel(this.text + "</html>");
+		this.setBackground(new Color(40, 175, 95));
+		this.add(label);
+	}
+	
+	public void reset() {
 		this.removeAll();
 		this.text = "<html>";
-		this.setBackground(new Color(250, 115, 115, 0));
+		this.setBackground(new Color(0, 0, 0, 0));
 		this.revalidate();
 	}
 	

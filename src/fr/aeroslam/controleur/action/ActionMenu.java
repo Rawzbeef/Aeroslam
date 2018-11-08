@@ -7,20 +7,20 @@ import fr.aeroslam.objet.Aeroport;
 import fr.aeroslam.vue.Vue;
 import fr.aeroslam.vue.VueAfficherAvion;
 import fr.aeroslam.vue.VueAjouterAvion;
-import fr.aeroslam.vue.VueErreur;
+import fr.aeroslam.vue.VueInfo;
 import fr.aeroslam.vue.VueRetirerAvion;
 
 public class ActionMenu implements ActionListener {
 
 	private Vue vue;
 	private String nomBouton;
-	private VueErreur vueErreur;
+	private VueInfo vueInfo;
 	private Aeroport aero;
 
-	public ActionMenu(Aeroport aero, Vue vue, VueErreur vueErreur, String nomBouton) {
+	public ActionMenu(Aeroport aero, Vue vue, VueInfo vueInfo, String nomBouton) {
 		this.aero = aero;
 		this.vue = vue;
-		this.vueErreur = vueErreur;
+		this.vueInfo = vueInfo;
 		this.nomBouton = nomBouton;
 	}
 
@@ -29,7 +29,7 @@ public class ActionMenu implements ActionListener {
 		switch(nomBouton) {
 		case "AjouterAvion":
 			vue.getContentPane().removeAll();
-			vue.getContentPane().add(new VueAjouterAvion(aero, vueErreur, vue)).revalidate();
+			vue.getContentPane().add(new VueAjouterAvion(aero, vueInfo, vue)).revalidate();
 			break;
 		case "AfficherAvion":
 			vue.getContentPane().removeAll();

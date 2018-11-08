@@ -23,7 +23,7 @@ public class VueAjouterAvion extends JPanel {
 	private JTextField jtfNbPlace;
 	private JButton jbAjouter;
 
-	public VueAjouterAvion(Aeroport aero, VueErreur vueErreur, Vue vue) {
+	public VueAjouterAvion(Aeroport aero, VueInfo vueInfo, Vue vue) {
 		this.jlNom = new JLabel("Nom :");
 		this.jtfNom = new JTextField();
 		this.jtfNom.setPreferredSize(new Dimension(150, 20));
@@ -33,10 +33,15 @@ public class VueAjouterAvion extends JPanel {
 		this.jtfNbPlace.setPreferredSize(new Dimension(150, 20));
 		
 		this.jbAjouter = new JButton("Ajouter");
-		this.jbAjouter.addActionListener(new ActionAjouterAvion(aero, vue, this, vueErreur));
+		
+		ActionAjouterAvion actionAjouterAvion = new ActionAjouterAvion(aero, vue, this, vueInfo);
+		this.jbAjouter.addActionListener(actionAjouterAvion);
+		this.jtfNom.addKeyListener(actionAjouterAvion);
+		this.jtfNbPlace.addKeyListener(actionAjouterAvion);
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+		
 		
 		c.gridx = 0;
 		c.gridy = 0;
@@ -55,7 +60,7 @@ public class VueAjouterAvion extends JPanel {
 		c.gridx = 0;
 		c.gridy++;
 		c.gridwidth = 2;
-		this.add(vueErreur, c);
+		this.add(vueInfo, c);
 		c.gridy++;
 		c.fill = GridBagConstraints.NONE;
 		this.add(jbAjouter, c);

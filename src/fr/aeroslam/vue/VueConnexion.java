@@ -24,13 +24,13 @@ public class VueConnexion extends JPanel {
 	private JButton jbConnexion;
 	
 	private Vue vue;
-	private VueErreur vueErreur;
+	private VueInfo vueInfo;
 	private Aeroport aero;
 
-	public VueConnexion(Aeroport aero, Vue vue, VueErreur vueErreur) {
+	public VueConnexion(Aeroport aero, Vue vue, VueInfo vueInfo) {
 		this.aero = aero;
 		this.vue = vue;
-		this.vueErreur = vueErreur;
+		this.vueInfo = vueInfo;
 		
 		
 		this.jlIdentifiant = new JLabel("Identifiant :");
@@ -45,8 +45,7 @@ public class VueConnexion extends JPanel {
 		
 		this.jbConnexion = new JButton("Connexion");
 		
-		
-		ActionConnexion actionConnexion = new ActionConnexion(this.aero, this.vue, this.vueErreur, this.jtfIdentifiant, this.jtfMdp);
+		ActionConnexion actionConnexion = new ActionConnexion(this.aero, this.vue, this.vueInfo, this.jtfIdentifiant, this.jtfMdp);
 		this.jtfIdentifiant.addKeyListener(actionConnexion);
 		this.jtfMdp.addKeyListener(actionConnexion);
 		this.jbConnexion.addActionListener(actionConnexion);
@@ -71,7 +70,7 @@ public class VueConnexion extends JPanel {
 		c.gridx = 0;
 		c.gridy++;
 		c.gridwidth = 2;
-		this.add(vueErreur, c);
+		this.add(vueInfo, c);
 		c.gridy++;
 		c.fill = GridBagConstraints.NONE;
 		this.add(jbConnexion, c);

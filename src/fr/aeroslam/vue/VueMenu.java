@@ -16,18 +16,18 @@ public class VueMenu extends JMenuBar {
 	private JMenuItem jmiRetirerAvion;
 	
 	
-	public VueMenu(Aeroport aero, Vue vue, VueErreur vueErreur) {
+	public VueMenu(Aeroport aero, Vue vue, VueInfo vueInfo) {
 		//Avion
 		this.jmAvion = new JMenu("Avion");
 		
 		this.jmiAjouterAvion = new JMenuItem("Ajouter");
-		this.jmiAjouterAvion.addActionListener(new ActionMenu(aero, vue, vueErreur, "AjouterAvion"));
+		this.jmiAjouterAvion.addActionListener(new ActionMenu(aero, vue, vueInfo, "AjouterAvion"));
 		
 		this.jmiAfficherAvion = new JMenuItem("Afficher");
-		this.jmiAfficherAvion.addActionListener(new ActionMenu(aero, vue, vueErreur, "AfficherAvion"));
+		this.jmiAfficherAvion.addActionListener(new ActionMenu(aero, vue, vueInfo, "AfficherAvion"));
 		
 		this.jmiRetirerAvion = new JMenuItem("Retirer");
-		this.jmiRetirerAvion.addActionListener(new ActionMenu(aero, vue, vueErreur, "RetirerAvion"));
+		this.jmiRetirerAvion.addActionListener(new ActionMenu(aero, vue, vueInfo, "RetirerAvion"));
 		
 		this.jmAvion.add(jmiAjouterAvion);
 		this.jmAvion.add(jmiAfficherAvion);

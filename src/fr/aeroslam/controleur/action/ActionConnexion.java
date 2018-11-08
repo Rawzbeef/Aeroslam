@@ -10,14 +10,14 @@ import javax.swing.JTextField;
 import fr.aeroslam.modele.Modele;
 import fr.aeroslam.objet.Aeroport;
 import fr.aeroslam.vue.Vue;
-import fr.aeroslam.vue.VueErreur;
+import fr.aeroslam.vue.VueInfo;
 import fr.aeroslam.vue.VueMenu;
 
 
 public class ActionConnexion implements ActionListener, KeyListener {
 	
 	private Vue vue;
-	private VueErreur vueErreur;
+	private VueInfo vueInfo;
 	
 	private JTextField jtfIdentifiant;
 	private JTextField jtfMdp;
@@ -25,24 +25,24 @@ public class ActionConnexion implements ActionListener, KeyListener {
 
 	
 
-	public ActionConnexion(Aeroport aero, Vue vue, VueErreur vueErreur, JTextField jtfIdentifiant, JTextField jtfMdp) {
+	public ActionConnexion(Aeroport aero, Vue vue, VueInfo vueInfo, JTextField jtfIdentifiant, JTextField jtfMdp) {
 		this.aero = aero;
 		this.vue = vue;
-		this.vueErreur = vueErreur;
+		this.vueInfo = vueInfo;
 		this.jtfIdentifiant = jtfIdentifiant;
 		this.jtfMdp = jtfMdp;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		vueErreur.removeErreur();
+		vueInfo.reset();
 		if(Modele.connexionAdmin(jtfIdentifiant.getText(), jtfMdp.getText())) {
 			vue.getContentPane().removeAll();
-			vue.setJMenuBar(new VueMenu(aero, vue, vueErreur));
+			vue.setJMenuBar(new VueMenu(aero, vue, vueInfo));
 			vue.getContentPane().add(new JPanel()).revalidate();
 		}
 		else {
-			vueErreur.addLabel("Identifiants incorrect");
+			vueInfo.addLabelErreur("Identifiants incorrect");
 			vue.getContentPane().revalidate();
 		}
 	}
@@ -50,14 +50,14 @@ public class ActionConnexion implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent event) {
 		if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-			vueErreur.removeErreur();
+			vueInfo.reset();
 			if(Modele.connexionAdmin(jtfIdentifiant.getText(), jtfMdp.getText())) {
 				vue.getContentPane().removeAll();
-				vue.setJMenuBar(new VueMenu(aero, vue, vueErreur));
+				vue.setJMenuBar(new VueMenu(aero, vue, vueInfo));
 				vue.getContentPane().add(new JPanel()).revalidate();
 			}
 			else {
-				vueErreur.addLabel("Identifiants incorrect");
+				vueInfo.addLabelErreur("Identifiants incorrect");
 				vue.getContentPane().revalidate();
 			}
 		}
