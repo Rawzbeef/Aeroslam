@@ -34,8 +34,7 @@ public class ActionAjouterAvion implements ActionListener, KeyListener {
 		int nbPlace = vueAjouterAvion.getNbPlace();
 		if(nbPlace > 0) {
 			aero.ajouterAvion(Modele.ajouterAvion(nomA, nbPlace), nomA, nbPlace);
-			vue.getContentPane().removeAll();
-			vue.getContentPane().add(new JPanel()).revalidate();
+			vueInfo.addLabelValider("Ajout effectué");
 		}
 		else {
 			vueInfo.addLabelErreur("Nombre de place incorrect");

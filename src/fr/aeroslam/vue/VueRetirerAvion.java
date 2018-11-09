@@ -40,7 +40,7 @@ public class VueRetirerAvion extends JPanel {
 			
 			this.jbRetirerAvion = new JButton("" + avion.getCodeAvion());
 			this.jbRetirerAvion.setBackground(Color.RED);
-			this.jbRetirerAvion.setFont(new Font("Arial", Font.PLAIN, 0));
+			this.jbRetirerAvion.setFont(new Font("Arial", Font.PLAIN, 8));
 			this.jbRetirerAvion.addActionListener(new ActionRetirerAvion(aero, vue));
 			
 			this.jpRetirerAvion.add(jlRetirerAvion, BorderLayout.NORTH);
