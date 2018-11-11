@@ -6,14 +6,12 @@ public abstract class Vol {
 	
 	private int numVol;
 	private Date dateVol;
-	private String paysDestination;
-	private String villeDestination;
+	private Destination destination;
 
-	public Vol(int numVol, Date dateVol, String paysDestination, String villeDestination) {
+	public Vol(int numVol, Date dateVol, Destination destination) {
 		this.setNumVol(numVol);
 		this.setDateVol(dateVol);
-		this.setPaysDestination(paysDestination);
-		this.setVilleDestination(villeDestination);
+		this.setDestination(destination);
 	}
 
 	/**
@@ -44,32 +42,12 @@ public abstract class Vol {
 		this.dateVol = dateVol;
 	}
 
-	/**
-	 * @return the paysDestination
-	 */
-	public String getPaysDestination() {
-		return paysDestination;
+	public Destination getDestination() {
+		return destination;
 	}
 
-	/**
-	 * @param paysDestination the paysDestination to set
-	 */
-	public void setPaysDestination(String paysDestination) {
-		this.paysDestination = paysDestination;
-	}
-
-	/**
-	 * @return the villeDestination
-	 */
-	public String getVilleDestination() {
-		return villeDestination;
-	}
-
-	/**
-	 * @param villeDestination the villeDestination to set
-	 */
-	public void setVilleDestination(String villeDestination) {
-		this.villeDestination = villeDestination;
+	public void setDestination(Destination destination) {
+		this.destination = destination;
 	}
 	
 }

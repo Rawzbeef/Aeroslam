@@ -23,7 +23,7 @@ public class VueAjouterAvion extends JPanel {
 	private JTextField jtfNbPlace;
 	private JButton jbAjouter;
 
-	public VueAjouterAvion(Aeroport aero, VueInfo vueInfo, Vue vue) {
+	public VueAjouterAvion(Aeroport aero, VueInfo vueInfo) {
 		this.jlNom = new JLabel("Nom :");
 		this.jtfNom = new JTextField();
 		this.jtfNom.setPreferredSize(new Dimension(150, 20));
@@ -34,7 +34,7 @@ public class VueAjouterAvion extends JPanel {
 		
 		this.jbAjouter = new JButton("Ajouter");
 		
-		ActionAjouterAvion actionAjouterAvion = new ActionAjouterAvion(aero, vue, this, vueInfo);
+		ActionAjouterAvion actionAjouterAvion = new ActionAjouterAvion(aero, this, vueInfo);
 		this.jbAjouter.addActionListener(actionAjouterAvion);
 		this.jtfNom.addKeyListener(actionAjouterAvion);
 		this.jtfNbPlace.addKeyListener(actionAjouterAvion);

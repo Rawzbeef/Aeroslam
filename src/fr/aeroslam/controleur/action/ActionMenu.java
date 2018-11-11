@@ -6,9 +6,12 @@ import java.awt.event.ActionListener;
 import fr.aeroslam.objet.Aeroport;
 import fr.aeroslam.vue.Vue;
 import fr.aeroslam.vue.VueAfficherAvion;
+import fr.aeroslam.vue.VueAfficherPassager;
 import fr.aeroslam.vue.VueAjouterAvion;
+import fr.aeroslam.vue.VueAjouterPassager;
 import fr.aeroslam.vue.VueInfo;
 import fr.aeroslam.vue.VueRetirerAvion;
+import fr.aeroslam.vue.VueRetirerPassager;
 
 public class ActionMenu implements ActionListener {
 
@@ -27,9 +30,10 @@ public class ActionMenu implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch(nomBouton) {
+		//Avions
 		case "AjouterAvion":
 			vue.getContentPane().removeAll();
-			vue.getContentPane().add(new VueAjouterAvion(aero, vueInfo, vue)).revalidate();
+			vue.getContentPane().add(new VueAjouterAvion(aero, vueInfo)).revalidate();
 			break;
 		case "AfficherAvion":
 			vue.getContentPane().removeAll();
@@ -38,6 +42,19 @@ public class ActionMenu implements ActionListener {
 		case "RetirerAvion":
 			vue.getContentPane().removeAll();
 			vue.getContentPane().add(new VueRetirerAvion(aero, vue)).revalidate();
+			break;
+		//Passager
+		case "AjouterPassager":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueAjouterPassager(aero, vueInfo)).revalidate();
+			break;
+		case "AfficherPassager":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueAfficherPassager(aero)).revalidate();
+			break;
+		case "RetirerPassager":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueRetirerPassager(aero, vue)).revalidate();
 			break;
 		}
 	}

@@ -7,22 +7,17 @@ import fr.aeroslam.modele.Modele;
 public class Aeroport {
 	
 	private ArrayList<Avion> lesAvions;
+	private ArrayList<Passager> lesPassagers;
 	
 	public Aeroport() {
 		this.lesAvions = Modele.initLesAvions();
-		
+		this.lesPassagers = Modele.initLesPassagers();
 	}
-
-	/**
-	 * @return La Liste d'Avion
-	 */
+	
 	public ArrayList<Avion> getLesAvions() {
 		return lesAvions;
 	}
-
-	/**
-	 * @param lesAvions the lesAvions to set
-	 */
+	
 	public void setLesAvions(ArrayList<Avion> lesAvions) {
 		this.lesAvions = lesAvions;
 	}
@@ -40,5 +35,22 @@ public class Aeroport {
 			this.lesAvions.remove(i);
 		}
 	}
+	
+	public ArrayList<Passager> getLesPassagers() {
+		return lesPassagers;
+	}
 
+	public void ajouterPassager(int id, String nomP, String prenomP, String rueP, String numRueP, int cpP, String villeP) {
+		this.lesPassagers.add(new Passager(id, nomP, prenomP, rueP, numRueP, cpP, villeP));
+	}
+
+	public void retirerPassager(int id) {
+		int i = 0;
+		while(i  < this.lesPassagers.size() && this.lesPassagers.get(i).getNumP() != id) {
+			i++;
+		}
+		if(i  < this.lesPassagers.size() && this.lesPassagers.get(i).getNumP() == id){
+			this.lesPassagers.remove(i);
+		}
+	}
 }

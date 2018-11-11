@@ -5,11 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JPanel;
-
 import fr.aeroslam.modele.Modele;
 import fr.aeroslam.objet.Aeroport;
-import fr.aeroslam.vue.Vue;
 import fr.aeroslam.vue.VueAjouterAvion;
 import fr.aeroslam.vue.VueInfo;
 
@@ -17,12 +14,10 @@ public class ActionAjouterAvion implements ActionListener, KeyListener {
 
 	private VueAjouterAvion vueAjouterAvion;
 	private VueInfo vueInfo;
-	private Vue vue;
 	private Aeroport aero;
 
-	public ActionAjouterAvion(Aeroport aero, Vue vue, VueAjouterAvion vueAjouterAvion, VueInfo vueInfo) {
+	public ActionAjouterAvion(Aeroport aero, VueAjouterAvion vueAjouterAvion, VueInfo vueInfo) {
 		this.aero = aero;
-		this.vue = vue;
 		this.vueAjouterAvion = vueAjouterAvion;
 		this.vueInfo = vueInfo;
 	}
@@ -34,7 +29,7 @@ public class ActionAjouterAvion implements ActionListener, KeyListener {
 		int nbPlace = vueAjouterAvion.getNbPlace();
 		if(nbPlace > 0) {
 			aero.ajouterAvion(Modele.ajouterAvion(nomA, nbPlace), nomA, nbPlace);
-			vueInfo.addLabelValider("Ajout effectué");
+			vueInfo.addLabelValider("Ajout de l'avion " + nomA + "effectué");
 		}
 		else {
 			vueInfo.addLabelErreur("Nombre de place incorrect");
@@ -49,8 +44,7 @@ public class ActionAjouterAvion implements ActionListener, KeyListener {
 			int nbPlace = vueAjouterAvion.getNbPlace();
 			if(nbPlace > 0) {
 				aero.ajouterAvion(Modele.ajouterAvion(nomA, nbPlace), nomA, nbPlace);
-				vue.getContentPane().removeAll();
-				vue.getContentPane().add(new JPanel()).revalidate();
+				vueInfo.addLabelValider("Ajout de l'avion " + nomA + "effectué");
 			}
 			else {
 				vueInfo.addLabelErreur("Nombre de place incorrect");

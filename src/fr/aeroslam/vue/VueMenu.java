@@ -15,6 +15,11 @@ public class VueMenu extends JMenuBar {
 	private JMenuItem jmiAfficherAvion;
 	private JMenuItem jmiRetirerAvion;
 	
+	private JMenu jmPassager;
+	private JMenuItem jmiAjouterPassager;
+	private JMenuItem jmiAfficherPassager;
+	private JMenuItem jmiRetirerPassager;
+	
 	
 	public VueMenu(Aeroport aero, Vue vue, VueInfo vueInfo) {
 		//Avion
@@ -33,9 +38,26 @@ public class VueMenu extends JMenuBar {
 		this.jmAvion.add(jmiAfficherAvion);
 		this.jmAvion.add(jmiRetirerAvion);
 		
+		//Passager
+		this.jmPassager = new JMenu("Passager");
+		
+		this.jmiAjouterPassager = new JMenuItem("Ajouter");
+		this.jmiAjouterPassager.addActionListener(new ActionMenu(aero, vue, vueInfo, "AjouterPassager"));
+		
+		this.jmiAfficherPassager = new JMenuItem("Afficher");
+		this.jmiAfficherPassager.addActionListener(new ActionMenu(aero, vue, vueInfo, "AfficherPassager"));
+		
+		this.jmiRetirerPassager = new JMenuItem("Retirer");
+		this.jmiRetirerPassager.addActionListener(new ActionMenu(aero, vue, vueInfo, "RetirerPassager"));
+		
+		this.jmPassager.add(jmiAjouterPassager);
+		this.jmPassager.add(jmiAfficherPassager);
+		this.jmPassager.add(jmiRetirerPassager);
+		
 		//Vol
 		
 		this.add(jmAvion);
+		this.add(jmPassager);
 	}
 
 }

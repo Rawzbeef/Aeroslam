@@ -1,12 +1,16 @@
 package fr.aeroslam.objet;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
 public class Avion {
-	
+
 	private int codeAvion;
 	private String nomAvion;
 	private int nbPlace;
-	
-	
+
+
 	public Avion(int codeAvion, String nomAvion, int nbPlace) {
 		this.setCodeAvion(codeAvion);
 		this.setNomAvion(nomAvion);
@@ -53,5 +57,17 @@ public class Avion {
 	 */
 	public void setNbPlace(int nbPlace) {
 		this.nbPlace = nbPlace;
+	}
+
+	/**
+	 * @return un Objet Element correspondant à la version XML de l'avion.
+	 */
+	public Element toXml() {
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement("avion");
+		root.addElement("code").addText("" + this.codeAvion);
+		root.addElement("nom").addText(this.nomAvion);
+		root.addElement("nombrePlace").addText("" + this.nbPlace);
+		return root;
 	}
 }

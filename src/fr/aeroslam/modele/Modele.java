@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import fr.aeroslam.objet.Avion;
+import fr.aeroslam.objet.Passager;
 
 
 public class Modele {
@@ -74,10 +75,28 @@ public class Modele {
 			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("L'initalisation de l'avions à échoué");
+			System.out.println("L'initalisation des avions à échoué");
 		}
 		deconnexionBD();
 		return lesAvions;
+	}
+	
+	public static ArrayList<Passager> initLesPassagers() {
+		connexionBD();
+		ArrayList<Passager> lesPassagers = new ArrayList<Passager>();
+		try {
+			statement = connexion.prepareStatement("SELECT * FROM Passager");
+			resultat = statement.executeQuery();
+			while(resultat.next()) {
+				lesPassagers.add(new Passager(resultat.getInt(1), resultat.getString(2), resultat.getString(3), resultat.getString(4), resultat.getString(5), resultat.getInt(6), resultat.getString(7)));
+			}
+			resultat.close();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("L'initalisation des passagers à échoué");
+		}
+		deconnexionBD();
+		return lesPassagers;
 	}
 
 	public static int ajouterAvion(String nomA, int nbPlace) {
@@ -87,6 +106,30 @@ public class Modele {
 			statement = connexion.prepareStatement("INSERT INTO Avion (nomA, nbPlace) Values (?, ?);", Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, nomA);
 			statement.setInt(2, nbPlace);
+			statement.executeUpdate();
+			resultat = statement.getGeneratedKeys();
+			if(resultat.next())
+				id = resultat.getInt(1);
+			resultat.close();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("L'ajout a échoué.");
+		}
+		deconnexionBD();
+		return id;
+	}
+	
+	public static int ajouterPassager(String nomP, String prenomP, String rueP, String numRueP, int cpP, String villeP) {
+		int id = 0;
+		connexionBD();
+		try {
+			statement = connexion.prepareStatement("INSERT INTO `passager`(`nomP`, `prenomP`, `rueP`, `numRueP`, `cpP`, `villeP`) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, nomP);
+			statement.setString(2, prenomP);
+			statement.setString(3, rueP);
+			statement.setString(4, numRueP);
+			statement.setInt(5, cpP);
+			statement.setString(6, villeP);
 			statement.executeUpdate();
 			resultat = statement.getGeneratedKeys();
 			if(resultat.next())
@@ -113,6 +156,19 @@ public class Modele {
 		deconnexionBD();
 	}
 	
+	public static void retirerPassager(int id) {
+		connexionBD();
+		try {
+			statement = connexion.prepareStatement("DELETE FROM `passager` WHERE codeP = ?;");
+			statement.setInt(1, id);
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("La suppression à échoué.");
+		}
+		deconnexionBD();
+	}
+	
 	public static int getNbAvion() {
 		connexionBD();
 		int nbAvion = 0;
@@ -128,5 +184,7 @@ public class Modele {
 		}
 		deconnexionBD();
 		return nbAvion;
-	}		
+	}
+
+			
 }
