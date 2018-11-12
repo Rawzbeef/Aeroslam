@@ -7,11 +7,13 @@ public abstract class Vol {
 	private int numVol;
 	private Date dateVol;
 	private Destination destination;
+	private Avion avion;
 
-	public Vol(int numVol, Date dateVol, Destination destination) {
+	public Vol(int numVol, Date dateVol, Destination destination, Avion avion) {
 		this.setNumVol(numVol);
 		this.setDateVol(dateVol);
 		this.setDestination(destination);
+		this.setAvion(avion);
 	}
 
 	/**
@@ -48,6 +50,14 @@ public abstract class Vol {
 
 	public void setDestination(Destination destination) {
 		this.destination = destination;
+	}
+
+	public Avion getAvion() {
+		return avion;
+	}
+
+	public void setAvion(Avion avion) {
+		this.avion = avion;
 	}
 	
 }
