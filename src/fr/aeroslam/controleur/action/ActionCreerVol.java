@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Date;
 
 import fr.aeroslam.modele.Modele;
 import fr.aeroslam.objet.Aeroport;
-import fr.aeroslam.vue.VueAjouterDestination;
 import fr.aeroslam.vue.VueCreerVol;
 import fr.aeroslam.vue.VueInfo;
 
@@ -26,14 +26,17 @@ public class ActionCreerVol implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		vueInfo.reset();
-		String villeD = vueAjouterDestination.getVilleD();
-		String paysD = vueAjouterDestination.getPaysD();
-		if(!villeD.equals("") && !paysD.equals("")) {
-			aero.ajouterDestination(Modele.ajouterDestination(villeD, paysD), villeD, paysD);
-			vueInfo.addLabelValider("Ajout de la destination " + villeD + " effectué");
+		Date dateV = vueCreerVol.getDate();
+		System.out.println(vueCreerVol.getAvionIndex() + " " + vueCreerVol.getDestinationIndex());
+		int avionIndex = vueCreerVol.getAvionIndex();
+		int destinationIndex = vueCreerVol.getDestinationIndex();
+		if(dateV != null) {
+			int id = Modele.creerVol(dateV, avionIndex, destinationIndex);
+			aero.creerVol(id , dateV, avionIndex, destinationIndex);
+			vueInfo.addLabelValider("Ajout du Vol n°" + id + " effectué");
 		}
 		else {
-			vueInfo.addLabelErreur("Un champ est vide !");
+			vueInfo.addLabelErreur("Date de départ non selectionné");
 		}
 	}
 
@@ -41,14 +44,16 @@ public class ActionCreerVol implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent event) {
 		if(event.getKeyCode() == KeyEvent.VK_ENTER) {
 			vueInfo.reset();
-			String villeD = vueAjouterDestination.getVilleD();
-			String paysD = vueAjouterDestination.getPaysD();
-			if(!villeD.equals("") && !paysD.equals("")) {
-				aero.ajouterDestination(Modele.ajouterDestination(villeD, paysD), villeD, paysD);
-				vueInfo.addLabelValider("Ajout de la destination " + villeD + " effectué");
+			Date dateV = vueCreerVol.getDate();
+			int avionIndex = vueCreerVol.getAvionIndex();
+			int destinationIndex = vueCreerVol.getDestinationIndex();
+			if(dateV != null) {
+				int id = Modele.creerVol(dateV, avionIndex, destinationIndex);
+				aero.creerVol(id , dateV, avionIndex, destinationIndex);
+				vueInfo.addLabelValider("Ajout du Vol n°" + id + " effectué");
 			}
 			else {
-				vueInfo.addLabelErreur("Un champ est vide");
+				vueInfo.addLabelErreur("Date de départ non selectionné");
 			}
 		}
 	}
@@ -61,9 +66,5 @@ public class ActionCreerVol implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
-	}
-
-	public static void main(String[] args) {
-		actionCreerVol
 	}
 }

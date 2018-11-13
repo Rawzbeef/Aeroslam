@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import fr.aeroslam.objet.Avion;
 import fr.aeroslam.objet.Destination;
 import fr.aeroslam.objet.Passager;
+import fr.aeroslam.objet.Vol;
+import fr.aeroslam.objet.VolCourrier;
 
 
 public class Modele {
@@ -117,6 +119,24 @@ public class Modele {
 		deconnexionBD();
 		return lesDestinations;
 	}
+	
+	public static ArrayList<Vol> initLesVols() {
+		connexionBD();
+		ArrayList<Destination> lesVols = new ArrayList<Destination>();
+		try {
+			statement = connexion.prepareStatement("SELECT * FROM VolCourrier");
+			resultat = statement.executeQuery();
+			while(resultat.next()) {
+				lesVols.add(new VolCourrier(resultat.getInt(1), resultat.getDate(2), resultat.getString(3), resultat.getString(4)));
+			}
+			resultat.close();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("L'initalisation des destinations à échoué");
+		}
+		deconnexionBD();
+		return lesVols;
+	}
 
 	public static int ajouterAvion(String nomA, int nbPlace) {
 		int id = 0;
@@ -182,6 +202,27 @@ public class Modele {
 		return id;
 	}	
 	
+	public static int creerVol(Date dateV, int codeA, int codeD) {
+		int id = 0;
+		connexionBD();
+		try {
+			statement = connexion.prepareStatement("INSERT INTO `destination`(`dateVCourrier`, `codeA`, `codeD`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			statement.setDate(1, dateV);
+			statement.setInt(2, codeA);
+			statement.setInt(2, codeD);
+			statement.executeUpdate();
+			resultat = statement.getGeneratedKeys();
+			if(resultat.next())
+				id = resultat.getInt(1);
+			resultat.close();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("La création du vol a échoué.");
+		}
+		deconnexionBD();
+		return id;
+	}
+	
 	public static void retirerAvion(int id) {
 		connexionBD();
 		try {
@@ -237,6 +278,4 @@ public class Modele {
 		deconnexionBD();
 		return nbAvion;
 	}
-
-	
 }

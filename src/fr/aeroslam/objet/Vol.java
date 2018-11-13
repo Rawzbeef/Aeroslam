@@ -9,9 +9,9 @@ public abstract class Vol {
 	private Destination destination;
 	private Avion avion;
 
-	public Vol(int numVol, Date dateVol, Destination destination, Avion avion) {
+	public Vol(int numVol, Date dateV, Destination destination, Avion avion) {
 		this.setNumVol(numVol);
-		this.setDateVol(dateVol);
+		this.setDateVol(dateV);
 		this.setDestination(destination);
 		this.setAvion(avion);
 	}

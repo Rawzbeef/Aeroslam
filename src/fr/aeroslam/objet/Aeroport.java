@@ -1,5 +1,6 @@
 package fr.aeroslam.objet;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import fr.aeroslam.modele.Modele;
@@ -9,8 +10,10 @@ public class Aeroport {
 	private ArrayList<Avion> lesAvions;
 	private ArrayList<Passager> lesPassagers;
 	private ArrayList<Destination> lesDestinations;
+	private ArrayList<Vol> lesVols;
 	
 	public Aeroport() {
+		this.lesVols = Modele.initLesVols();
 		this.lesAvions = Modele.initLesAvions();
 		this.lesPassagers = Modele.initLesPassagers();
 		this.lesDestinations = Modele.initLesDestinations();
@@ -72,5 +75,14 @@ public class Aeroport {
 		if(i  < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == id){
 			this.lesDestinations.remove(i);
 		}
+	}
+	
+	public ArrayList<Vol> getLesVols() {
+		return lesVols;
+	}
+	
+	public void creerVol(int id, Date dateV, int avionIndex, int destinationIndex) {
+		System.out.println(this.lesAvions.get(destinationIndex).getNomAvion());
+		this.lesVols.add(new VolCourrier(id, dateV, this.lesDestinations.get(destinationIndex), this.lesAvions.get(avionIndex)));
 	}
 }

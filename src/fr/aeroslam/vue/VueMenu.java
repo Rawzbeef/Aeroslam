@@ -25,6 +25,9 @@ public class VueMenu extends JMenuBar {
 	private JMenuItem jmiAfficherDestination;
 	private JMenuItem jmiRetirerDestination;
 	
+	private JMenu jmVol;
+	private JMenuItem jmiCreerVol;
+	
 	
 	public VueMenu(Aeroport aero, Vue vue, VueInfo vueInfo) {
 		//Avion
@@ -76,10 +79,17 @@ public class VueMenu extends JMenuBar {
 		this.jmDestination.add(jmiRetirerDestination);
 		
 		//Vol
+		this.jmVol = new JMenu("Vol");
+		
+		this.jmiCreerVol = new JMenuItem("Créer");
+		this.jmiCreerVol.addActionListener(new ActionMenu(aero, vue, vueInfo, "CreerVol"));
+		
+		this.jmVol.add(jmiCreerVol);
 		
 		this.add(jmAvion);
 		this.add(jmPassager);
 		this.add(jmDestination);
+		this.add(jmVol);
 	}
 
 }

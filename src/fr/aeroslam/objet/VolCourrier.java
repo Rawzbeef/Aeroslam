@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class VolCourrier extends Vol {
 
-	public VolCourrier(int numVol, Date dateVol, Destination destination, Avion avion) {
-		super(numVol, dateVol, destination, avion);
+	public VolCourrier(int numVol, Date dateV, String string, String string2) {
+		super(numVol, dateV, destination, avion);
 		
 	}
 }
