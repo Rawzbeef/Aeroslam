@@ -162,6 +162,26 @@ public class Modele {
 		return id;
 	}
 	
+	public static int ajouterDestination(String villeD, String paysD) {
+		int id = 0;
+		connexionBD();
+		try {
+			statement = connexion.prepareStatement("INSERT INTO `destination`(`villeD`, `paysD`) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, villeD);
+			statement.setString(2, paysD);
+			statement.executeUpdate();
+			resultat = statement.getGeneratedKeys();
+			if(resultat.next())
+				id = resultat.getInt(1);
+			resultat.close();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("L'ajout du passager a échoué.");
+		}
+		deconnexionBD();
+		return id;
+	}	
+	
 	public static void retirerAvion(int id) {
 		connexionBD();
 		try {
@@ -188,6 +208,19 @@ public class Modele {
 		deconnexionBD();
 	}
 	
+	public static void retirerDestination(int id) {
+		connexionBD();
+		try {
+			statement = connexion.prepareStatement("DELETE FROM `destination` WHERE codeD = ?;");
+			statement.setInt(1, id);
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("La suppression à échoué.");
+		}
+		deconnexionBD();
+	}
+	
 	public static int getNbAvion() {
 		connexionBD();
 		int nbAvion = 0;
@@ -203,5 +236,7 @@ public class Modele {
 		}
 		deconnexionBD();
 		return nbAvion;
-	}	
+	}
+
+	
 }

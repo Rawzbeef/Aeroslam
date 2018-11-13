@@ -29,7 +29,7 @@ public class ActionAjouterAvion implements ActionListener, KeyListener {
 		int nbPlace = vueAjouterAvion.getNbPlace();
 		if(nbPlace > 0) {
 			aero.ajouterAvion(Modele.ajouterAvion(nomA, nbPlace), nomA, nbPlace);
-			vueInfo.addLabelValider("Ajout de l'avion " + nomA + "effectué");
+			vueInfo.addLabelValider("Ajout de l'avion " + nomA + " effectué");
 		}
 		else {
 			vueInfo.addLabelErreur("Nombre de place incorrect");
@@ -44,7 +44,7 @@ public class ActionAjouterAvion implements ActionListener, KeyListener {
 			int nbPlace = vueAjouterAvion.getNbPlace();
 			if(nbPlace > 0) {
 				aero.ajouterAvion(Modele.ajouterAvion(nomA, nbPlace), nomA, nbPlace);
-				vueInfo.addLabelValider("Ajout de l'avion " + nomA + "effectué");
+				vueInfo.addLabelValider("Ajout de l'avion " + nomA + " effectué");
 			}
 			else {
 				vueInfo.addLabelErreur("Nombre de place incorrect");

@@ -59,4 +59,18 @@ public class Aeroport {
 	public ArrayList<Destination> getLesDestinations() {
 		return lesDestinations;
 	}
+
+	public void ajouterDestination(int id, String villeD, String paysD) {
+		this.lesDestinations.add(new Destination(id, villeD, paysD));
+	}
+
+	public void retirerDestination(int id) {
+		int i = 0;
+		while(i  < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() != id) {
+			i++;
+		}
+		if(i  < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == id){
+			this.lesDestinations.remove(i);
+		}
+	}
 }

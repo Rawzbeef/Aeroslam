@@ -6,11 +6,14 @@ import java.awt.event.ActionListener;
 import fr.aeroslam.objet.Aeroport;
 import fr.aeroslam.vue.Vue;
 import fr.aeroslam.vue.VueAfficherAvion;
+import fr.aeroslam.vue.VueAfficherDestination;
 import fr.aeroslam.vue.VueAfficherPassager;
 import fr.aeroslam.vue.VueAjouterAvion;
+import fr.aeroslam.vue.VueAjouterDestination;
 import fr.aeroslam.vue.VueAjouterPassager;
 import fr.aeroslam.vue.VueInfo;
 import fr.aeroslam.vue.VueRetirerAvion;
+import fr.aeroslam.vue.VueRetirerDestination;
 import fr.aeroslam.vue.VueRetirerPassager;
 
 public class ActionMenu implements ActionListener {
@@ -55,6 +58,19 @@ public class ActionMenu implements ActionListener {
 		case "RetirerPassager":
 			vue.getContentPane().removeAll();
 			vue.getContentPane().add(new VueRetirerPassager(aero, vue)).revalidate();
+			break;
+		//Destination
+		case "AjouterDestination":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueAjouterDestination(aero, vueInfo)).revalidate();
+			break;
+		case "AfficherDestination":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueAfficherDestination(aero)).revalidate();
+			break;
+		case "RetirerDestination":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueRetirerDestination(aero, vue)).revalidate();
 			break;
 		}
 	}

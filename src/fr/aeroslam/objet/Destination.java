@@ -6,10 +6,10 @@ public class Destination {
 	private String paysD;
 	private String villeD;
 
-	public Destination(int codeD, String paysD, String villeD) {
+	public Destination(int codeD, String villeD, String paysD) {
 		this.setCodeD(codeD);
 		this.setPaysD(paysD);
-		this.setVilleD(paysD);
+		this.setVilleD(villeD);
 	}
 
 	/**

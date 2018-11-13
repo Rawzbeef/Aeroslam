@@ -1,5 +1,7 @@
 package fr.aeroslam.objet;
 
+import java.util.ArrayList;
+
 public class Passager {
 
 	
@@ -11,6 +13,7 @@ public class Passager {
 	private String numRueP;
 	private int codePostalP;
 	private String villeP;
+	private ArrayList<VolCourrier> sesVolsCourrier;
 
 	public Passager(int numP, String nomP, String prenomP, String rueP, String numRueP, int codePostalP, String villeP) {
 		this.setNumP(numP);
@@ -20,6 +23,7 @@ public class Passager {
 		this.setNumRueP(numRueP);
 		this.setCodePostalP(codePostalP);
 		this.setVilleP(villeP);
+		this.setSesVolsCourrier(new ArrayList<VolCourrier>());
 	}
 
 	/**
@@ -118,6 +122,20 @@ public class Passager {
 	 */
 	public void setVilleP(String villeP) {
 		this.villeP = villeP;
+	}
+
+	/**
+	 * @return the sesVolsCourrier
+	 */
+	public ArrayList<VolCourrier> getSesVolsCourrier() {
+		return sesVolsCourrier;
+	}
+
+	/**
+	 * @param sesVolsCourrier the sesVolsCourrier to set
+	 */
+	public void setSesVolsCourrier(ArrayList<VolCourrier> sesVolsCourrier) {
+		this.sesVolsCourrier = sesVolsCourrier;
 	}
 
 }
