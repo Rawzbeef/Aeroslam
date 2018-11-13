@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import fr.aeroslam.objet.Avion;
+import fr.aeroslam.objet.Destination;
 import fr.aeroslam.objet.Passager;
 
 
@@ -98,6 +99,24 @@ public class Modele {
 		deconnexionBD();
 		return lesPassagers;
 	}
+	
+	public static ArrayList<Destination> initLesDestinations() {
+		connexionBD();
+		ArrayList<Destination> lesDestinations = new ArrayList<Destination>();
+		try {
+			statement = connexion.prepareStatement("SELECT * FROM Destination");
+			resultat = statement.executeQuery();
+			while(resultat.next()) {
+				lesDestinations.add(new Destination(resultat.getInt(1), resultat.getString(2), resultat.getString(3)));
+			}
+			resultat.close();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("L'initalisation des destinations à échoué");
+		}
+		deconnexionBD();
+		return lesDestinations;
+	}
 
 	public static int ajouterAvion(String nomA, int nbPlace) {
 		int id = 0;
@@ -113,7 +132,7 @@ public class Modele {
 			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("L'ajout a échoué.");
+			System.out.println("L'ajout de l'avion a échoué.");
 		}
 		deconnexionBD();
 		return id;
@@ -137,7 +156,7 @@ public class Modele {
 			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("L'ajout a échoué.");
+			System.out.println("L'ajout du passager a échoué.");
 		}
 		deconnexionBD();
 		return id;
@@ -184,7 +203,5 @@ public class Modele {
 		}
 		deconnexionBD();
 		return nbAvion;
-	}
-
-			
+	}	
 }

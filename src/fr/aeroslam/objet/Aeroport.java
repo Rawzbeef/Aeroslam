@@ -8,10 +8,12 @@ public class Aeroport {
 	
 	private ArrayList<Avion> lesAvions;
 	private ArrayList<Passager> lesPassagers;
+	private ArrayList<Destination> lesDestinations;
 	
 	public Aeroport() {
 		this.lesAvions = Modele.initLesAvions();
 		this.lesPassagers = Modele.initLesPassagers();
+		this.lesDestinations = Modele.initLesDestinations();
 	}
 	
 	public ArrayList<Avion> getLesAvions() {
@@ -31,7 +33,7 @@ public class Aeroport {
 		while(i  < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() != id) {
 			i++;
 		}
-		if(i  < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() == id){
+		if(i < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() == id){
 			this.lesAvions.remove(i);
 		}
 	}
@@ -52,5 +54,9 @@ public class Aeroport {
 		if(i  < this.lesPassagers.size() && this.lesPassagers.get(i).getNumP() == id){
 			this.lesPassagers.remove(i);
 		}
+	}
+	
+	public ArrayList<Destination> getLesDestinations() {
+		return lesDestinations;
 	}
 }

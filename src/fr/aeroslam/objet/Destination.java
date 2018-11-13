@@ -2,12 +2,28 @@ package fr.aeroslam.objet;
 
 public class Destination {
 
+	private int codeD;
 	private String paysD;
 	private String villeD;
 
-	public Destination(String paysD, String villeD) {
+	public Destination(int codeD, String paysD, String villeD) {
+		this.setCodeD(codeD);
 		this.setPaysD(paysD);
 		this.setVilleD(paysD);
+	}
+
+	/**
+	 * @return the codeD
+	 */
+	public int getCodeD() {
+		return codeD;
+	}
+
+	/**
+	 * @param codeD the codeD to set
+	 */
+	public void setCodeD(int codeD) {
+		this.codeD = codeD;
 	}
 
 	public String getPaysD() {
