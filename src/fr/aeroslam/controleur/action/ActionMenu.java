@@ -67,6 +67,10 @@ public class ActionMenu implements ActionListener {
 			vue.getContentPane().removeAll();
 			vue.getContentPane().add(new VueCreerVol(aero, vueInfo)).revalidate();
 			break;
+		case "X":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueConnexion(aero, vue, vueInfo)).revalidate();
+			break;
 		}
 	}
 }

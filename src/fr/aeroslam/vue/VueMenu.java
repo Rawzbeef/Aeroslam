@@ -1,5 +1,6 @@
 package fr.aeroslam.vue;
 
+import javax.swing.Box;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,6 +28,8 @@ public class VueMenu extends JMenuBar {
 	
 	private JMenu jmVol;
 	private JMenuItem jmiCreerVol;
+	
+	private JMenuItem jmiXDeniz;
 	
 	
 	public VueMenu(Aeroport aero, Vue vue, VueInfo vueInfo) {
@@ -86,10 +89,17 @@ public class VueMenu extends JMenuBar {
 		
 		this.jmVol.add(jmiCreerVol);
 		
+		this.jmiXDeniz = new JMenuItem("X");
+		this.jmiXDeniz.addActionListener(new ActionMenu(aero, vue, vueInfo, "X"));
+		
 		this.add(jmAvion);
 		this.add(jmPassager);
 		this.add(jmDestination);
 		this.add(jmVol);
+		
+		this.add(Box.createHorizontalGlue());
+		
+		this.add(jmiXDeniz);
 	}
 
 }

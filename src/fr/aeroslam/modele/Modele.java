@@ -203,13 +203,13 @@ public class Modele {
 		return id;
 	}	
 	
-	@SuppressWarnings("deprecation")
 	public static int creerVol(String dateV, int codeA, int codeD) {
 		int id = 0;
 		connexionBD();
 		try {
 			statement = connexion.prepareStatement("INSERT INTO `VolCourrier`(`dateVCourrier`, `codeA`, `codeD`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-			statement.setDate(1, new Date(Integer.parseInt(dateV.substring(0, 3)), Integer.parseInt(dateV.substring(5, 6)), Integer.parseInt(dateV.substring(8, 9))));
+			//statement.setDate(1, new Date(Integer.parseInt(dateV.substring(0, 3)), Integer.parseInt(dateV.substring(5, 6)), Integer.parseInt(dateV.substring(8, 9))));
+			statement.setString(1, dateV);
 			statement.setInt(2, codeA);
 			statement.setInt(3, codeD);
 			statement.executeUpdate();

@@ -52,6 +52,10 @@ public class Aeroport {
 		return avion;
 	}
 	
+	public Avion getAvion(int id, String lnull) {
+		return this.lesAvions.get(id);
+	}
+	
 	public ArrayList<Passager> getLesPassagers() {
 		return lesPassagers;
 	}
@@ -94,22 +98,14 @@ public class Aeroport {
 		while(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() != index) {
 			i++;
 		}
-		if(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == id) {
+		if(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == index) {
 			destination = this.lesDestinations.get(i);
 		}
 		return destination;
 	}
 	
 	public Destination getDestination(int id, String lnull) {
-		int i = 0;
-		Destination destination = null;
-		while(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() != id) {
-			i++;
-		}
-		if(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == id) {
-			destination = this.lesDestinations.get(i);
-		}
-		return destination;
+		return this.lesDestinations.get(id);
 	}
 	
 	public ArrayList<Vol> getLesVols() {

@@ -110,7 +110,7 @@ public class VueCreerVol extends JPanel {
 
 	public String getDate() {
 		try {
-			return jdpiDate.getModel().getYear() + "-" + jdpiDate.getModel().getMonth() + "-" + jdpiDate.getModel().getDay();
+			return jdpiDate.getModel().getYear() + "-" + (jdpiDate.getModel().getMonth()+1) + "-" + jdpiDate.getModel().getDay();
 		} catch(NullPointerException e) {
 			return null;
 		}
