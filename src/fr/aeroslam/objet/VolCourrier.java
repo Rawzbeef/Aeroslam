@@ -1,11 +1,8 @@
 package fr.aeroslam.objet;
 
-import java.sql.Date;
-
 public class VolCourrier extends Vol {
 
-	public VolCourrier(int numVol, Date dateV, String string, String string2) {
+	public VolCourrier(int numVol, String dateV, Destination destination, Avion avion) {
 		super(numVol, dateV, destination, avion);
-		
 	}
 }

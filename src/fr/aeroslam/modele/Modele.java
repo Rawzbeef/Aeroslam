@@ -2,6 +2,7 @@ package fr.aeroslam.modele;
 import java.sql.*;
 import java.util.ArrayList;
 
+import fr.aeroslam.objet.Aeroport;
 import fr.aeroslam.objet.Avion;
 import fr.aeroslam.objet.Destination;
 import fr.aeroslam.objet.Passager;
@@ -120,19 +121,19 @@ public class Modele {
 		return lesDestinations;
 	}
 	
-	public static ArrayList<Vol> initLesVols() {
+	public static ArrayList<Vol> initLesVols(Aeroport aero) {
 		connexionBD();
-		ArrayList<Destination> lesVols = new ArrayList<Destination>();
+		ArrayList<Vol> lesVols = new ArrayList<Vol>();
 		try {
 			statement = connexion.prepareStatement("SELECT * FROM VolCourrier");
 			resultat = statement.executeQuery();
 			while(resultat.next()) {
-				lesVols.add(new VolCourrier(resultat.getInt(1), resultat.getDate(2), resultat.getString(3), resultat.getString(4)));
+				lesVols.add(new VolCourrier(resultat.getInt(1), resultat.getString(2), aero.getDestination(resultat.getInt(3)), aero.getAvion(resultat.getInt(4))));
 			}
 			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("L'initalisation des destinations à échoué");
+			System.out.println("L'initalisation des vols à échoué");
 		}
 		deconnexionBD();
 		return lesVols;
@@ -202,14 +203,15 @@ public class Modele {
 		return id;
 	}	
 	
-	public static int creerVol(Date dateV, int codeA, int codeD) {
+	@SuppressWarnings("deprecation")
+	public static int creerVol(String dateV, int codeA, int codeD) {
 		int id = 0;
 		connexionBD();
 		try {
-			statement = connexion.prepareStatement("INSERT INTO `destination`(`dateVCourrier`, `codeA`, `codeD`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-			statement.setDate(1, dateV);
+			statement = connexion.prepareStatement("INSERT INTO `VolCourrier`(`dateVCourrier`, `codeA`, `codeD`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			statement.setDate(1, new Date(Integer.parseInt(dateV.substring(0, 3)), Integer.parseInt(dateV.substring(5, 6)), Integer.parseInt(dateV.substring(8, 9))));
 			statement.setInt(2, codeA);
-			statement.setInt(2, codeD);
+			statement.setInt(3, codeD);
 			statement.executeUpdate();
 			resultat = statement.getGeneratedKeys();
 			if(resultat.next())
@@ -217,7 +219,7 @@ public class Modele {
 			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("La création du vol a échoué.");
+			System.out.println("La création du vol a échoué. " + e);
 		}
 		deconnexionBD();
 		return id;

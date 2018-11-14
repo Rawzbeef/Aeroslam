@@ -62,5 +62,9 @@ CREATE TABLE Administrateur (
 	PRIMARY KEY (codeAdmin)
 );
 
+INSERT INTO Destination (paysD, villeD)
+VALUES("France", "Paris"),
+("France", "Lyon")
+
 INSERT INTO Administrateur (identifiantAdmin, mdpAdmin) 
 VALUE("admin", "admin");

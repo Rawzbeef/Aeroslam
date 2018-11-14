@@ -8,5 +8,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JDBC"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JDOM"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jdate"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JDate"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

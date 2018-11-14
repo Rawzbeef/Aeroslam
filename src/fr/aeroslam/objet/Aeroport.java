@@ -1,6 +1,5 @@
 package fr.aeroslam.objet;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import fr.aeroslam.modele.Modele;
@@ -13,10 +12,10 @@ public class Aeroport {
 	private ArrayList<Vol> lesVols;
 	
 	public Aeroport() {
-		this.lesVols = Modele.initLesVols();
 		this.lesAvions = Modele.initLesAvions();
 		this.lesPassagers = Modele.initLesPassagers();
 		this.lesDestinations = Modele.initLesDestinations();
+		this.lesVols = Modele.initLesVols(this);
 	}
 	
 	public ArrayList<Avion> getLesAvions() {
@@ -39,6 +38,18 @@ public class Aeroport {
 		if(i < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() == id){
 			this.lesAvions.remove(i);
 		}
+	}
+	
+	public Avion getAvion(int id) {
+		int i = 0;
+		Avion avion = null;
+		while(i < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() != id) {
+			i++;
+		}
+		if(i < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() == id) {
+			avion = this.lesAvions.get(i);
+		}
+		return avion;
 	}
 	
 	public ArrayList<Passager> getLesPassagers() {
@@ -77,12 +88,37 @@ public class Aeroport {
 		}
 	}
 	
+	public Destination getDestination(int index) {
+		int i = 0;
+		Destination destination = null;
+		while(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() != index) {
+			i++;
+		}
+		if(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == id) {
+			destination = this.lesDestinations.get(i);
+		}
+		return destination;
+	}
+	
+	public Destination getDestination(int id, String lnull) {
+		int i = 0;
+		Destination destination = null;
+		while(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() != id) {
+			i++;
+		}
+		if(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == id) {
+			destination = this.lesDestinations.get(i);
+		}
+		return destination;
+	}
+	
 	public ArrayList<Vol> getLesVols() {
 		return lesVols;
 	}
 	
-	public void creerVol(int id, Date dateV, int avionIndex, int destinationIndex) {
-		System.out.println(this.lesAvions.get(destinationIndex).getNomAvion());
+	public void creerVol(int id, String dateV, int avionIndex, int destinationIndex) {
+		//System.out.println(this.lesAvions.get(avionIndex).getNomAvion());
 		this.lesVols.add(new VolCourrier(id, dateV, this.lesDestinations.get(destinationIndex), this.lesAvions.get(avionIndex)));
 	}
+
 }

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Date;
 
 import fr.aeroslam.modele.Modele;
 import fr.aeroslam.objet.Aeroport;
@@ -26,12 +25,12 @@ public class ActionCreerVol implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		vueInfo.reset();
-		Date dateV = vueCreerVol.getDate();
+		String dateV = vueCreerVol.getDate();
 		System.out.println(vueCreerVol.getAvionIndex() + " " + vueCreerVol.getDestinationIndex());
 		int avionIndex = vueCreerVol.getAvionIndex();
 		int destinationIndex = vueCreerVol.getDestinationIndex();
 		if(dateV != null) {
-			int id = Modele.creerVol(dateV, avionIndex, destinationIndex);
+			int id = Modele.creerVol(dateV, aero.getAvion(avionIndex).getCodeAvion(), aero.getDestination(destinationIndex).getCodeD());
 			aero.creerVol(id , dateV, avionIndex, destinationIndex);
 			vueInfo.addLabelValider("Ajout du Vol n°" + id + " effectué");
 		}
@@ -44,11 +43,12 @@ public class ActionCreerVol implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent event) {
 		if(event.getKeyCode() == KeyEvent.VK_ENTER) {
 			vueInfo.reset();
-			Date dateV = vueCreerVol.getDate();
+			String dateV = vueCreerVol.getDate();
+			System.out.println(vueCreerVol.getAvionIndex() + " " + vueCreerVol.getDestinationIndex());
 			int avionIndex = vueCreerVol.getAvionIndex();
 			int destinationIndex = vueCreerVol.getDestinationIndex();
 			if(dateV != null) {
-				int id = Modele.creerVol(dateV, avionIndex, destinationIndex);
+				int id = Modele.creerVol(dateV, aero.getAvion(avionIndex).getCodeAvion(), aero.getDestination(destinationIndex).getCodeD());
 				aero.creerVol(id , dateV, avionIndex, destinationIndex);
 				vueInfo.addLabelValider("Ajout du Vol n°" + id + " effectué");
 			}

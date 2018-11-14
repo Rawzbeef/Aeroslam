@@ -1,46 +1,32 @@
 package fr.aeroslam.objet;
 
-import java.sql.Date;
-
 public abstract class Vol {
 	
 	private int numVol;
-	private Date dateVol;
+	private String dateVol;
 	private Destination destination;
 	private Avion avion;
 
-	public Vol(int numVol, Date dateV, Destination destination, Avion avion) {
+	public Vol(int numVol, String dateV, Destination destination, Avion avion) {
 		this.setNumVol(numVol);
 		this.setDateVol(dateV);
 		this.setDestination(destination);
 		this.setAvion(avion);
 	}
 
-	/**
-	 * @return the numVol
-	 */
 	public int getNumVol() {
 		return numVol;
 	}
 
-	/**
-	 * @param numVol the numVol to set
-	 */
 	public void setNumVol(int numVol) {
 		this.numVol = numVol;
 	}
 
-	/**
-	 * @return the dateVol
-	 */
-	public Date getDateVol() {
+	public String getDateVol() {
 		return dateVol;
 	}
 
-	/**
-	 * @param dateVol the dateVol to set
-	 */
-	public void setDateVol(Date dateVol) {
+	public void setDateVol(String dateVol) {
 		this.dateVol = dateVol;
 	}
 

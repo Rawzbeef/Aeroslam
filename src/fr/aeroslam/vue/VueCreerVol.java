@@ -4,7 +4,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -49,23 +48,23 @@ public class VueCreerVol extends JPanel {
 		 
 		this.jlAvion = new JLabel("Avion :");
 		ArrayList<Avion> lesAvions = aero.getLesAvions();
-		String[] table = new String[aero.getLesAvions().size()];
+		String[] tableA = new String[aero.getLesAvions().size()];
+		String[] tableD = new String[aero.getLesDestinations().size()];
 		int i = 0;
 		for(Avion avion : lesAvions) {
-			table[i] = avion.getNomAvion() + " - " + avion.getNbPlace();
+			tableA[i] = avion.getCodeAvion() + " - " + avion.getNomAvion() + " - " + avion.getNbPlace();
 			i++;
 		}
-		this.jcbAvion = new JComboBox<String>(table);
+		this.jcbAvion = new JComboBox<String>(tableA);
 		
 		this.jlDestination = new JLabel("Destination :");
 		ArrayList<Destination> lesDestinations = aero.getLesDestinations();
-		table = new String[aero.getLesAvions().size()];
 		i = 0;
 		for(Destination destination : lesDestinations) {
-			table[i] = destination.getVilleD() + " | " + destination.getPaysD();
+			tableD[i] = destination.getVilleD() + " | " + destination.getPaysD();
 			i++;
 		}
-		this.jcbDestination = new JComboBox<String>(table);
+		this.jcbDestination = new JComboBox<String>(tableD);
 		
 		this.jbCreer = new JButton("Créer");
 		
@@ -109,11 +108,9 @@ public class VueCreerVol extends JPanel {
 		this.add(jbCreer, c);
 	}
 
-	@SuppressWarnings("deprecation")
-	public Date getDate() {
+	public String getDate() {
 		try {
-			System.out.println(jdpiDate.getModel().getYear() + " " + jdpiDate.getModel().getMonth() + " " + jdpiDate.getModel().getDay());
-			return new Date(jdpiDate.getModel().getYear(), jdpiDate.getModel().getMonth(), jdpiDate.getModel().getDay());
+			return jdpiDate.getModel().getYear() + "-" + jdpiDate.getModel().getMonth() + "-" + jdpiDate.getModel().getDay();
 		} catch(NullPointerException e) {
 			return null;
 		}
