@@ -13,7 +13,7 @@ public class Passager {
 	private String numRueP;
 	private int codePostalP;
 	private String villeP;
-	private ArrayList<VolCourrier> sesVolsCourrier;
+	private ArrayList<VolCourrier> lesVolsCourrier;
 
 	public Passager(int numP, String nomP, String prenomP, String rueP, String numRueP, int codePostalP, String villeP) {
 		this.setNumP(numP);
@@ -23,7 +23,7 @@ public class Passager {
 		this.setNumRueP(numRueP);
 		this.setCodePostalP(codePostalP);
 		this.setVilleP(villeP);
-		this.setSesVolsCourrier(new ArrayList<VolCourrier>());
+		this.setLesVolsCourrier(new ArrayList<VolCourrier>());
 	}
 
 	/**
@@ -127,15 +127,20 @@ public class Passager {
 	/**
 	 * @return the sesVolsCourrier
 	 */
-	public ArrayList<VolCourrier> getSesVolsCourrier() {
-		return sesVolsCourrier;
+	public ArrayList<VolCourrier> getLesVolsCourrier() {
+		return lesVolsCourrier;
 	}
 
 	/**
 	 * @param sesVolsCourrier the sesVolsCourrier to set
 	 */
-	public void setSesVolsCourrier(ArrayList<VolCourrier> sesVolsCourrier) {
-		this.sesVolsCourrier = sesVolsCourrier;
+	public void setLesVolsCourrier(ArrayList<VolCourrier> sesVolsCourrier) {
+		this.lesVolsCourrier = sesVolsCourrier;
+	}
+
+	public void addUnVol(VolCourrier vol) {
+		this.lesVolsCourrier.add(vol);
+		vol.addUnPassager(this);
 	}
 
 }

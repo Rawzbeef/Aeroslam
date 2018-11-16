@@ -62,11 +62,20 @@ public class ActionMenu implements ActionListener {
 			vue.getContentPane().removeAll();
 			vue.getContentPane().add(new VueRetirerDestination(aero, vue)).revalidate();
 			break;
-		//Destination
+		//Vol
 		case "CreerVol":
 			vue.getContentPane().removeAll();
 			vue.getContentPane().add(new VueCreerVol(aero, vueInfo)).revalidate();
 			break;
+		case "AfficherVolCourrier":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueAfficherVolCourrier(aero)).revalidate();
+			break;
+		case "AfficherVolCommercial":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueAfficherVolCommercial(aero)).revalidate();
+			break;
+		//X
 		case "X":
 			vue.getContentPane().removeAll();
 			vue.getContentPane().add(new VueConnexion(aero, vue, vueInfo)).revalidate();

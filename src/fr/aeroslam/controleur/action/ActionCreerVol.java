@@ -29,12 +29,22 @@ public class ActionCreerVol implements ActionListener, KeyListener {
 		int avionIndex = vueCreerVol.getAvionIndex();
 		int destinationIndex = vueCreerVol.getDestinationIndex();
 		if(dateV != null) {
-			int id = Modele.creerVol(dateV, aero.getAvion(avionIndex,"").getCodeAvion(), aero.getDestination(destinationIndex,"").getCodeD());
-			aero.creerVol(id , dateV, avionIndex, destinationIndex);
-			vueInfo.addLabelValider("Ajout du Vol n°" + id + " effectué");
+			if(this.vueCreerVol.isCourrier()) {
+				int id = Modele.creerVolCourrier(dateV, aero.getAvion(avionIndex,"").getCodeAvion(), aero.getDestination(destinationIndex,"").getCodeD());
+				aero.creerVolCourrier(id , dateV, avionIndex, destinationIndex);
+				vueInfo.addLabelValider("Ajout du vol courrier n°" + id + " effectué");
+			}
+			else if(this.vueCreerVol.isCommercial()) {
+				int id = Modele.creerVolCommercial(dateV, aero.getAvion(avionIndex,"").getCodeAvion(), aero.getDestination(destinationIndex,"").getCodeD());
+				aero.creerVolCommercial(id , dateV, avionIndex, destinationIndex);
+				vueInfo.addLabelValider("Ajout du vol commercial n°" + id + " effectué");
+			}
+			else {
+				vueInfo.addLabelErreur("Le type de vol n'est pas sélectionné");
+			}
 		}
 		else {
-			vueInfo.addLabelErreur("Date de départ non selectionné");
+			vueInfo.addLabelErreur("Date de départ non sélectionné");
 		}
 	}
 
@@ -46,12 +56,22 @@ public class ActionCreerVol implements ActionListener, KeyListener {
 			int avionIndex = vueCreerVol.getAvionIndex();
 			int destinationIndex = vueCreerVol.getDestinationIndex();
 			if(dateV != null) {
-				int id = Modele.creerVol(dateV, aero.getAvion(avionIndex,"").getCodeAvion(), aero.getDestination(destinationIndex,"").getCodeD());
-				aero.creerVol(id , dateV, avionIndex, destinationIndex);
-				vueInfo.addLabelValider("Ajout du Vol n°" + id + " effectué");
+				if(this.vueCreerVol.isCourrier()) {
+					int id = Modele.creerVolCourrier(dateV, aero.getAvion(avionIndex,"").getCodeAvion(), aero.getDestination(destinationIndex,"").getCodeD());
+					aero.creerVolCourrier(id , dateV, avionIndex, destinationIndex);
+					vueInfo.addLabelValider("Ajout du vol courrier n°" + id + " effectué");
+				}
+				else if(this.vueCreerVol.isCommercial()) {
+					int id = Modele.creerVolCommercial(dateV, aero.getAvion(avionIndex,"").getCodeAvion(), aero.getDestination(destinationIndex,"").getCodeD());
+					aero.creerVolCommercial(id , dateV, avionIndex, destinationIndex);
+					vueInfo.addLabelValider("Ajout du vol commercial n°" + id + " effectué");
+				}
+				else {
+					vueInfo.addLabelErreur("Le type de vol n'est pas sélectionné");
+				}
 			}
 			else {
-				vueInfo.addLabelErreur("Date de départ non selectionné");
+				vueInfo.addLabelErreur("Date de départ non sélectionné");
 			}
 		}
 	}

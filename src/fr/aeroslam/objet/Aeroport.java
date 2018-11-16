@@ -108,13 +108,32 @@ public class Aeroport {
 		return this.lesDestinations.get(id);
 	}
 	
-	public ArrayList<Vol> getLesVols() {
-		return lesVols;
+	public ArrayList<VolCourrier> getLesVolsCourrier() {
+		ArrayList<VolCourrier> lesVolsCourrier = new ArrayList<VolCourrier>();
+		for(Vol vol : this.lesVols) {
+			if(vol instanceof VolCourrier) {
+				lesVolsCourrier.add((VolCourrier) vol);
+			}
+		}
+		return lesVolsCourrier;
 	}
 	
-	public void creerVol(int id, String dateV, int avionIndex, int destinationIndex) {
-		//System.out.println(this.lesAvions.get(avionIndex).getNomAvion());
+	public ArrayList<VolCommercial> getLesVolsCommercial() {
+		ArrayList<VolCommercial> lesVolsCommercial = new ArrayList<VolCommercial>();
+		for(Vol vol : this.lesVols) {
+			if(vol instanceof VolCommercial) {
+				lesVolsCommercial.add((VolCommercial) vol);
+			}
+		}
+		return lesVolsCommercial;
+	}
+	
+	public void creerVolCourrier(int id, String dateV, int avionIndex, int destinationIndex) {
 		this.lesVols.add(new VolCourrier(id, dateV, this.lesDestinations.get(destinationIndex), this.lesAvions.get(avionIndex)));
+	}
+	
+	public void creerVolCommercial(int id, String dateV, int avionIndex, int destinationIndex) {
+		this.lesVols.add(new VolCommercial(id, dateV, this.lesDestinations.get(destinationIndex), this.lesAvions.get(avionIndex)));
 	}
 
 }

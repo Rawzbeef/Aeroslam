@@ -203,11 +203,33 @@ public class Modele {
 		return id;
 	}	
 	
-	public static int creerVol(String dateV, int codeA, int codeD) {
+	public static int creerVolCourrier(String dateV, int codeA, int codeD) {
 		int id = 0;
 		connexionBD();
 		try {
 			statement = connexion.prepareStatement("INSERT INTO `VolCourrier`(`dateVCourrier`, `codeA`, `codeD`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			//statement.setDate(1, new Date(Integer.parseInt(dateV.substring(0, 3)), Integer.parseInt(dateV.substring(5, 6)), Integer.parseInt(dateV.substring(8, 9))));
+			statement.setString(1, dateV);
+			statement.setInt(2, codeA);
+			statement.setInt(3, codeD);
+			statement.executeUpdate();
+			resultat = statement.getGeneratedKeys();
+			if(resultat.next())
+				id = resultat.getInt(1);
+			resultat.close();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("La création du vol a échoué. " + e);
+		}
+		deconnexionBD();
+		return id;
+	}
+	
+	public static int creerVolCommercial(String dateV, int codeA, int codeD) {
+		int id = 0;
+		connexionBD();
+		try {
+			statement = connexion.prepareStatement("INSERT INTO `VolCommercial`(`dateVCommercial`, `codeA`, `codeD`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			//statement.setDate(1, new Date(Integer.parseInt(dateV.substring(0, 3)), Integer.parseInt(dateV.substring(5, 6)), Integer.parseInt(dateV.substring(8, 9))));
 			statement.setString(1, dateV);
 			statement.setInt(2, codeA);

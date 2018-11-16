@@ -1,5 +1,7 @@
 package fr.aeroslam.objet;
 
+import java.util.ArrayList;
+
 public abstract class Vol {
 	
 	private int numVol;
@@ -45,5 +47,5 @@ public abstract class Vol {
 	public void setAvion(Avion avion) {
 		this.avion = avion;
 	}
-	
+
 }

@@ -29,7 +29,11 @@ public class VueMenu extends JMenuBar {
 	private JMenu jmVol;
 	private JMenuItem jmiCreerVol;
 	
+	private JMenuItem jmiAfficherVolCourrier;
+	private JMenuItem jmiAfficherVolCommercial;
+	
 	private JMenuItem jmiXDeniz;
+	
 	
 	
 	public VueMenu(Aeroport aero, Vue vue, VueInfo vueInfo) {
@@ -87,7 +91,15 @@ public class VueMenu extends JMenuBar {
 		this.jmiCreerVol = new JMenuItem("Créer");
 		this.jmiCreerVol.addActionListener(new ActionMenu(aero, vue, vueInfo, "CreerVol"));
 		
+		this.jmiAfficherVolCourrier = new JMenuItem("Afficher les vol courrier");
+		this.jmiAfficherVolCourrier.addActionListener(new ActionMenu(aero, vue, vueInfo, "AfficherVolCourrier"));
+		
+		this.jmiAfficherVolCommercial = new JMenuItem("Afficher les vol commercial");
+		this.jmiAfficherVolCommercial.addActionListener(new ActionMenu(aero, vue, vueInfo, "AfficherVolCommercial"));
+		
 		this.jmVol.add(jmiCreerVol);
+		this.jmVol.add(jmiAfficherVolCourrier);
+		this.jmVol.add(jmiAfficherVolCommercial);
 		
 		this.jmiXDeniz = new JMenuItem("X");
 		this.jmiXDeniz.addActionListener(new ActionMenu(aero, vue, vueInfo, "X"));
@@ -97,9 +109,9 @@ public class VueMenu extends JMenuBar {
 		this.add(jmDestination);
 		this.add(jmVol);
 		
-		this.add(Box.createHorizontalGlue());
+		//this.add(Box.createHorizontalGlue());
 		
-		this.add(jmiXDeniz);
+		//this.add(jmiXDeniz);
 	}
 
 }

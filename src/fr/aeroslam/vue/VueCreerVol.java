@@ -6,10 +6,12 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -34,6 +36,9 @@ public class VueCreerVol extends JPanel {
 	private JComboBox<String> jcbDestination;
 
 	private JButton jbCreer;
+	private JRadioButton jrbCourrier;
+	private JRadioButton jrbCommercial;
+	private ButtonGroup bgVol;
 
 	public VueCreerVol(Aeroport aero, VueInfo vueInfo) {
 
@@ -46,6 +51,12 @@ public class VueCreerVol extends JPanel {
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		this.jdpiDate = new JDatePickerImpl(datePanel, new FormatterSqlDate());
 		 
+		this.jrbCourrier = new JRadioButton("Courrier");
+		this.jrbCommercial = new JRadioButton("Commercial");
+		this.bgVol = new ButtonGroup();
+		this.bgVol.add(jrbCourrier);
+		this.bgVol.add(jrbCommercial);
+		
 		this.jlAvion = new JLabel("Avion :");
 		ArrayList<Avion> lesAvions = aero.getLesAvions();
 		String[] tableA = new String[aero.getLesAvions().size()];
@@ -85,6 +96,15 @@ public class VueCreerVol extends JPanel {
 		c.gridx++;
 		c.fill = GridBagConstraints.BOTH;
 		this.add(jdpiDate, c);
+		
+		c.gridx = 0;
+		c.gridy++;
+		c.fill = GridBagConstraints.NONE;
+		this.add(jrbCourrier, c);
+		c.gridx++;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(jrbCommercial, c);
+		
 		c.gridx = 0;
 		c.gridy++;
 		c.fill = GridBagConstraints.NONE;
@@ -107,13 +127,21 @@ public class VueCreerVol extends JPanel {
 		c.fill = GridBagConstraints.NONE;
 		this.add(jbCreer, c);
 	}
-
+	
 	public String getDate() {
 		try {
 			return jdpiDate.getModel().getYear() + "-" + (jdpiDate.getModel().getMonth()+1) + "-" + jdpiDate.getModel().getDay();
 		} catch(NullPointerException e) {
 			return null;
 		}
+	}
+	
+	public boolean isCourrier() {
+		return this.jrbCourrier.isSelected();
+	}
+	
+	public boolean isCommercial() {
+		return this.jrbCommercial.isSelected();
 	}
 
 	public int getAvionIndex() {

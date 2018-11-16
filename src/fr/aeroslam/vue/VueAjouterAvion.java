@@ -21,6 +21,7 @@ public class VueAjouterAvion extends JPanel {
 	
 	private JLabel jlNbPlace;
 	private JTextField jtfNbPlace;
+	
 	private JButton jbAjouter;
 
 	public VueAjouterAvion(Aeroport aero, VueInfo vueInfo) {
