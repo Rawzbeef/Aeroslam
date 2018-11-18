@@ -28,6 +28,7 @@ public class VueConnexion extends JPanel {
 	private Aeroport aero;
 
 	public VueConnexion(Aeroport aero, Vue vue, VueInfo vueInfo) {
+		vueInfo.reset();
 		this.aero = aero;
 		this.vue = vue;
 		this.vueInfo = vueInfo;

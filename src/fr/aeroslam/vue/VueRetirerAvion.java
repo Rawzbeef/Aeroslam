@@ -24,7 +24,8 @@ public class VueRetirerAvion extends JPanel {
 	private JLabel jlRetirerAvion;
 	private JButton jbRetirerAvion;
 	
-	public VueRetirerAvion(Aeroport aero, Vue vue) {
+	public VueRetirerAvion(Aeroport aero, Vue vue, VueInfo vueInfo) {
+		vueInfo.reset();
 		ArrayList<Avion> lesAvions = aero.getLesAvions();
 		
 		this.setLayout(new GridBagLayout());
@@ -41,7 +42,7 @@ public class VueRetirerAvion extends JPanel {
 			this.jbRetirerAvion = new JButton("" + avion.getCodeAvion());
 			this.jbRetirerAvion.setBackground(Color.RED);
 			this.jbRetirerAvion.setFont(new Font("Arial", Font.PLAIN, 8));
-			this.jbRetirerAvion.addActionListener(new ActionRetirerAvion(aero, vue));
+			this.jbRetirerAvion.addActionListener(new ActionRetirerAvion(aero, vue, vueInfo));
 			
 			this.jpRetirerAvion.add(jlRetirerAvion, BorderLayout.NORTH);
 			this.jpRetirerAvion.add(jbRetirerAvion, BorderLayout.SOUTH);
@@ -57,5 +58,9 @@ public class VueRetirerAvion extends JPanel {
 				compteurX++;
 			}
 		}
+		c.gridx = 0;
+		c.gridy++;
+		c.gridwidth = 5;
+		this.add(vueInfo);
 	}
 }

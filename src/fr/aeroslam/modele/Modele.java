@@ -7,6 +7,7 @@ import fr.aeroslam.objet.Avion;
 import fr.aeroslam.objet.Destination;
 import fr.aeroslam.objet.Passager;
 import fr.aeroslam.objet.Vol;
+import fr.aeroslam.objet.VolCommercial;
 import fr.aeroslam.objet.VolCourrier;
 
 
@@ -79,7 +80,7 @@ public class Modele {
 			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("L'initalisation des avions à échoué");
+			System.out.println("L'initalisation des avions ont échoué");
 		}
 		deconnexionBD();
 		return lesAvions;
@@ -97,7 +98,7 @@ public class Modele {
 			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("L'initalisation des passagers à échoué");
+			System.out.println("L'initalisation des passagers ont échoué");
 		}
 		deconnexionBD();
 		return lesPassagers;
@@ -115,7 +116,7 @@ public class Modele {
 			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("L'initalisation des destinations à échoué");
+			System.out.println("L'initalisation des destinations ont échoué");
 		}
 		deconnexionBD();
 		return lesDestinations;
@@ -128,15 +129,45 @@ public class Modele {
 			statement = connexion.prepareStatement("SELECT * FROM VolCourrier");
 			resultat = statement.executeQuery();
 			while(resultat.next()) {
-				lesVols.add(new VolCourrier(resultat.getInt(1), resultat.getString(2), aero.getDestination(resultat.getInt(3)), aero.getAvion(resultat.getInt(4))));
+				if(aero.getDestination(resultat.getInt(4)) == null) {
+					System.out.println("true" + resultat.getInt(4));
+				}
+				lesVols.add(new VolCourrier(resultat.getInt(1), resultat.getString(2), aero.getDestination(resultat.getInt(4)), aero.getAvion(resultat.getInt(3))));
+			}
+			resultat.close();
+			statement.close();
+			statement = connexion.prepareStatement("SELECT * FROM VolCommercial");
+			resultat = statement.executeQuery();
+			while(resultat.next()) {
+				lesVols.add(new VolCommercial(resultat.getInt(1), resultat.getString(2), aero.getDestination(resultat.getInt(4)), aero.getAvion(resultat.getInt(3))));
 			}
 			resultat.close();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("L'initalisation des vols à échoué");
+			System.out.println("L'initalisation des vols ont échoué");
 		}
 		deconnexionBD();
 		return lesVols;
+	}
+	
+	public static void initLesEnregistrements(Aeroport aero) {
+		connexionBD();
+		ArrayList<VolCourrier> lesVolsCourrier = aero.getLesVolsCourrier();
+		try {
+		for(VolCourrier vol : lesVolsCourrier){
+			statement = connexion.prepareStatement("SELECT * FROM enregistrer WHERE codeV = ?");
+			statement.setInt(1, vol.getNumVol());
+			resultat = statement.executeQuery();
+			while(resultat.next()) {
+				vol.addUnPassager(aero.getPassagerById(resultat.getInt(1)));
+			}
+			resultat.close();
+			statement.close();
+		}
+		} catch (SQLException e) {
+			System.out.println("L'initalisation des enregistrements ont échoué");
+		}
+		deconnexionBD();
 	}
 
 	public static int ajouterAvion(String nomA, int nbPlace) {
@@ -183,6 +214,20 @@ public class Modele {
 		return id;
 	}
 	
+	public static void ajouterEnregistrer(int numV, int numP) {
+		connexionBD();
+		try {
+			statement = connexion.prepareStatement("INSERT INTO `enregistrer`(`codeP`, `codeV`) VALUES (?, ?)");
+			statement.setInt(1, numP);
+			statement.setInt(2, numV);
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("L'ajout du lien passager/vol a échoué.");
+		}
+		deconnexionBD();
+	}
+	
 	public static int ajouterDestination(String villeD, String paysD) {
 		int id = 0;
 		connexionBD();
@@ -208,7 +253,6 @@ public class Modele {
 		connexionBD();
 		try {
 			statement = connexion.prepareStatement("INSERT INTO `VolCourrier`(`dateVCourrier`, `codeA`, `codeD`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-			//statement.setDate(1, new Date(Integer.parseInt(dateV.substring(0, 3)), Integer.parseInt(dateV.substring(5, 6)), Integer.parseInt(dateV.substring(8, 9))));
 			statement.setString(1, dateV);
 			statement.setInt(2, codeA);
 			statement.setInt(3, codeD);
@@ -230,7 +274,6 @@ public class Modele {
 		connexionBD();
 		try {
 			statement = connexion.prepareStatement("INSERT INTO `VolCommercial`(`dateVCommercial`, `codeA`, `codeD`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-			//statement.setDate(1, new Date(Integer.parseInt(dateV.substring(0, 3)), Integer.parseInt(dateV.substring(5, 6)), Integer.parseInt(dateV.substring(8, 9))));
 			statement.setString(1, dateV);
 			statement.setInt(2, codeA);
 			statement.setInt(3, codeD);
@@ -247,43 +290,64 @@ public class Modele {
 		return id;
 	}
 	
-	public static void retirerAvion(int id) {
+	public static void retirerAvion(int id) throws SQLException {
 		connexionBD();
-		try {
-			statement = connexion.prepareStatement("DELETE FROM `avion` WHERE codeA = ?;");
-			statement.setInt(1, id);
-			statement.executeUpdate();
-			statement.close();
-		} catch (SQLException e) {
-			System.out.println("La suppression à échoué.");
-		}
+		statement = connexion.prepareStatement("DELETE FROM `avion` WHERE codeA = ?;");
+		statement.setInt(1, id);
+		statement.executeUpdate();
+		statement.close();
 		deconnexionBD();
 	}
 	
-	public static void retirerPassager(int id) {
+	public static void retirerPassager(int id) throws SQLException {
 		connexionBD();
-		try {
-			statement = connexion.prepareStatement("DELETE FROM `passager` WHERE codeP = ?;");
-			statement.setInt(1, id);
-			statement.executeUpdate();
-			statement.close();
-		} catch (SQLException e) {
-			System.out.println("La suppression à échoué.");
-		}
+		statement = connexion.prepareStatement("DELETE FROM `passager` WHERE codeP = ?;");
+		statement.setInt(1, id);
+		statement.executeUpdate();
+		statement.close();
 		deconnexionBD();
 	}
 	
-	public static void retirerDestination(int id) {
+	public static void retirerDestination(int id) throws SQLException {
+		connexionBD();
+		statement = connexion.prepareStatement("DELETE FROM `destination` WHERE codeD = ?;");
+		statement.setInt(1, id);
+		statement.executeUpdate();
+		statement.close();
+		deconnexionBD();
+	}
+	
+	public static void retirerEnregistrer(int numP, int numV) {
 		connexionBD();
 		try {
-			statement = connexion.prepareStatement("DELETE FROM `destination` WHERE codeD = ?;");
+			statement = connexion.prepareStatement("DELETE FROM `enregistrer` WHERE codeP = ? AND codeV = ?;");
+			statement.setInt(1, numP);
+			statement.setInt(2, numV);
+			statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("La suppression du lien Vol/Passager à échoué");
+		}
+	}
+	
+	public static void retirerVolCourrier(int id) throws SQLException {
+		connexionBD();
+		statement = connexion.prepareStatement("DELETE FROM `VolCourrier` WHERE codeVCourrier = ?;");
+		statement.setInt(1, id);
+		statement.executeUpdate();
+		statement.close();
+	}
+	
+	public static void retirerVolCommercial(int id) {
+		connexionBD();
+		try {
+			statement = connexion.prepareStatement("DELETE FROM `VolCommercial` WHERE codeVCommercial = ?;");
 			statement.setInt(1, id);
 			statement.executeUpdate();
 			statement.close();
 		} catch (SQLException e) {
-			System.out.println("La suppression à échoué.");
+			System.out.println("La suppression du vol commercial à échoué " + e);
 		}
-		deconnexionBD();
 	}
 	
 	public static int getNbAvion() {

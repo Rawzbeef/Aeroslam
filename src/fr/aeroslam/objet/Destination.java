@@ -1,5 +1,9 @@
 package fr.aeroslam.objet;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
 public class Destination {
 
 	private int codeD;
@@ -40,6 +44,15 @@ public class Destination {
 
 	public void setVilleD(String villeD) {
 		this.villeD = villeD;
+	}
+	
+	public Element toXml() {
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement("destination");
+		root.addElement("code").addText("" + this.codeD);
+		root.addElement("pays").addText(this.paysD);
+		root.addElement("ville").addText(this.villeD);
+		return root;
 	}
 
 }

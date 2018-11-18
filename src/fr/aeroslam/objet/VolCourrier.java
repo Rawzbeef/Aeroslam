@@ -2,6 +2,10 @@ package fr.aeroslam.objet;
 
 import java.util.ArrayList;
 
+import org.dom4j.Element;
+
+import fr.aeroslam.modele.Modele;
+
 public class VolCourrier extends Vol {
 	
 	private ArrayList<Passager> lesPassagers;
@@ -29,8 +33,30 @@ public class VolCourrier extends Vol {
 		this.lesPassagers = lesPassagers;
 	}
 	
-	public void addUnPassager(Passager passager) {
-		this.lesPassagers.add(passager);
-		passager.addUnVol(this);
+	public boolean addUnPassager(Passager passager) {
+		boolean bool = false;
+		if(this.getNbPlaceRestante() > 0) {
+			this.lesPassagers.add(passager);
+			passager.addUnVol(this);
+			Modele.ajouterEnregistrer(this.getNumVol(), passager.getNumP());
+			bool = true;
+		}
+		return bool;
+	}
+
+	public void retirerUnPassager(Passager passager) {
+		this.lesPassagers.remove(passager);
+		passager.retirerUnVol(this);
+		Modele.retirerEnregistrer(passager.getNumP(), this.getNumVol());
+	}
+	
+	@Override
+	public Element toXml() {
+		Element root = super.toXml();
+		Element passagers = root.addElement("Passager");
+		for(Passager passager : lesPassagers) {
+			passagers.add(passager.toXml());
+		}
+		return root;
 	}
 }

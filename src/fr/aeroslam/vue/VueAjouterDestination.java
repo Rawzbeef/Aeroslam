@@ -24,6 +24,7 @@ public class VueAjouterDestination extends JPanel {
 	private JButton jbAjouter;
 
 	public VueAjouterDestination(Aeroport aero, VueInfo vueInfo) {
+		vueInfo.reset();
 		this.jlVille = new JLabel("Ville :");
 		this.jtfVille = new JTextField();
 		this.jtfVille.setPreferredSize(new Dimension(150, 20));

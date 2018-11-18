@@ -2,6 +2,10 @@ package fr.aeroslam.objet;
 
 import java.util.ArrayList;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
 public class Passager {
 
 	
@@ -138,9 +142,31 @@ public class Passager {
 		this.lesVolsCourrier = sesVolsCourrier;
 	}
 
-	public void addUnVol(VolCourrier vol) {
-		this.lesVolsCourrier.add(vol);
-		vol.addUnPassager(this);
+	public boolean addUnVol(VolCourrier vol) {
+		boolean bool = false;
+		System.out.println(vol.getNbPlaceRestante());
+		if(vol.getNbPlaceRestante() > 0) {
+			this.lesVolsCourrier.add(vol);
+			bool = true;
+		}
+		return bool;
+	}
+	
+	public void retirerUnVol(VolCourrier vol) {
+		this.lesVolsCourrier.remove(vol);
+	}
+	
+	public Element toXml() {
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement("passager");
+		root.addElement("code").addText("" + this.numP);
+		root.addElement("nom").addText(this.nomP);
+		root.addElement("prenom").addText(this.prenomP);
+		root.addElement("rue").addText(this.rueP);
+		root.addElement("numRue").addText(this.numRueP);
+		root.addElement("codePostal").addText("" + this.codePostalP);
+		root.addElement("ville").addText(this.villeP);
+		return root;
 	}
 
 }

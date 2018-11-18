@@ -1,7 +1,21 @@
 package fr.aeroslam.objet;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+
+import fr.aeroslam.controleur.Controleur;
 import fr.aeroslam.modele.Modele;
 
 public class Aeroport {
@@ -32,7 +46,7 @@ public class Aeroport {
 
 	public void retirerAvion(int id) {
 		int i = 0;
-		while(i  < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() != id) {
+		while(i < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() != id) {
 			i++;
 		}
 		if(i < this.lesAvions.size() && this.lesAvions.get(i).getCodeAvion() == id){
@@ -59,6 +73,22 @@ public class Aeroport {
 	public ArrayList<Passager> getLesPassagers() {
 		return lesPassagers;
 	}
+	
+	public Passager getPassagerById(int id) {
+		int i = 0;
+		Passager passager = null;
+		while(i < this.lesPassagers.size() && this.lesPassagers.get(i).getNumP() != id) {
+			i++;
+		}
+		if(i < this.lesPassagers.size() && this.lesPassagers.get(i).getNumP() == id) {
+			passager = this.lesPassagers.get(i);
+		}
+		return passager;
+	}
+	
+	public Passager getPassager(int index) {
+		return lesPassagers.get(index);
+	}
 
 	public void ajouterPassager(int id, String nomP, String prenomP, String rueP, String numRueP, int cpP, String villeP) {
 		this.lesPassagers.add(new Passager(id, nomP, prenomP, rueP, numRueP, cpP, villeP));
@@ -66,7 +96,7 @@ public class Aeroport {
 
 	public void retirerPassager(int id) {
 		int i = 0;
-		while(i  < this.lesPassagers.size() && this.lesPassagers.get(i).getNumP() != id) {
+		while(i < this.lesPassagers.size() && this.lesPassagers.get(i).getNumP() != id) {
 			i++;
 		}
 		if(i  < this.lesPassagers.size() && this.lesPassagers.get(i).getNumP() == id){
@@ -84,7 +114,7 @@ public class Aeroport {
 
 	public void retirerDestination(int id) {
 		int i = 0;
-		while(i  < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() != id) {
+		while(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() != id) {
 			i++;
 		}
 		if(i  < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == id){
@@ -92,20 +122,20 @@ public class Aeroport {
 		}
 	}
 	
-	public Destination getDestination(int index) {
+	public Destination getDestination(int id) {
 		int i = 0;
 		Destination destination = null;
-		while(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() != index) {
+		while(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() != id) {
 			i++;
 		}
-		if(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == index) {
+		if(i < this.lesDestinations.size() && this.lesDestinations.get(i).getCodeD() == id) {
 			destination = this.lesDestinations.get(i);
 		}
 		return destination;
 	}
 	
-	public Destination getDestination(int id, String lnull) {
-		return this.lesDestinations.get(id);
+	public Destination getDestination(int index, String lnull) {
+		return this.lesDestinations.get(index);
 	}
 	
 	public ArrayList<VolCourrier> getLesVolsCourrier() {
@@ -128,6 +158,22 @@ public class Aeroport {
 		return lesVolsCommercial;
 	}
 	
+	public VolCourrier getVolCourrier(int index) {
+		return getLesVolsCourrier().get(index);
+	}
+	
+	public VolCourrier getVolCourrierById(int id) {
+		int i = 0;
+		VolCourrier vol = null;
+		while(i < this.lesVols.size() && (this.lesVols.get(i).getNumVol() != id || !(this.lesVols.get(i) instanceof VolCourrier))) {
+			i++;
+		}
+		if(i < this.lesVols.size() && this.lesVols.get(i).getNumVol() == id) {
+			vol = (VolCourrier) this.lesVols.get(i);
+		}
+		return vol;
+	}
+	
 	public void creerVolCourrier(int id, String dateV, int avionIndex, int destinationIndex) {
 		this.lesVols.add(new VolCourrier(id, dateV, this.lesDestinations.get(destinationIndex), this.lesAvions.get(avionIndex)));
 	}
@@ -136,4 +182,71 @@ public class Aeroport {
 		this.lesVols.add(new VolCommercial(id, dateV, this.lesDestinations.get(destinationIndex), this.lesAvions.get(avionIndex)));
 	}
 
+	public void retirerVolCourrier(int id) {
+		int i = 0;
+		while(i < this.lesVols.size() && (this.lesVols.get(i).getNumVol() != id || !(this.lesVols.get(i) instanceof VolCourrier))) {
+			i++;
+		}
+		if(i < this.lesVols.size() && this.lesVols.get(i).getNumVol() == id){
+			this.lesVols.remove(i);
+		}
+	}
+	
+	public void retirerVolCommercial(int id) {
+		int i = 0;
+		while(i < this.lesVols.size() && (this.lesVols.get(i).getNumVol() != id || !(this.lesVols.get(i) instanceof VolCommercial))) {
+			i++;
+		}
+		if(i < this.lesVols.size() && this.lesVols.get(i).getNumVol() == id){
+			this.lesVols.remove(i);
+		}
+	}
+	
+	public void toXml() {
+		ArrayList<VolCourrier> lesVolsCourrier = getLesVolsCourrier();
+		ArrayList<VolCommercial> lesVolsCommercial = getLesVolsCommercial();
+		try {
+			Document document = DocumentHelper.createDocument();
+			Element root = document.addElement("aeroport");
+			Element avions = root.addElement("avions");
+			for(Avion avion : lesAvions) {
+				avions.add(avion.toXml());
+			}
+			Element passagers = root.addElement("passagers");
+			for(Passager passager : lesPassagers) {
+				passagers.add(passager.toXml());
+			}
+			Element destinations = root.addElement("destinations");
+			for(Destination destination : lesDestinations) {
+				destinations.add(destination.toXml());
+			}
+			Element vols = root.addElement("vols");
+			Element volsCourrier = vols.addElement("volsCourriers");
+			for(VolCourrier volCourrier : lesVolsCourrier) {
+				volsCourrier.add(volCourrier.toXml());
+			}
+			Element volsCommercial = vols.addElement("volsCommerciaux");
+			for(VolCommercial volCommercial : lesVolsCommercial) {
+				volsCommercial.add(volCommercial.toXml());
+			}
+			
+			String dossPath = URLDecoder.decode(new File(Controleur.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent(), "UTF-8") + "\\xml";
+			File dir = new File(dossPath);
+			dir.mkdirs();
+
+			FileOutputStream fos = new FileOutputStream( dossPath + "\\Aeroport.xml");
+			OutputFormat format = OutputFormat.createPrettyPrint();
+			XMLWriter writer;
+			writer = new XMLWriter(fos, format);
+			writer.write(document);
+		} catch (UnsupportedEncodingException e) {
+			System.out.println(e);
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		} catch (URISyntaxException e) {
+			System.out.println(e);
+		}
+	}
 }

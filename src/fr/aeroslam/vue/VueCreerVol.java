@@ -41,6 +41,7 @@ public class VueCreerVol extends JPanel {
 	private ButtonGroup bgVol;
 
 	public VueCreerVol(Aeroport aero, VueInfo vueInfo) {
+		vueInfo.reset();
 
 		this.jlDate = new JLabel("Date de départ : ");
 		UtilDateModel model = new UtilDateModel();

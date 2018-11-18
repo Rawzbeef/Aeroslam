@@ -24,7 +24,8 @@ public class VueRetirerDestination extends JPanel {
 	private JLabel jlRetirerDestination;
 	private JButton jbRetirerDestination;
 	
-	public VueRetirerDestination(Aeroport aero, Vue vue) {
+	public VueRetirerDestination(Aeroport aero, Vue vue, VueInfo vueInfo) {
+		vueInfo.reset();
 		ArrayList<Destination> lesDestinations = aero.getLesDestinations();
 		
 		this.setLayout(new GridBagLayout());
@@ -41,7 +42,7 @@ public class VueRetirerDestination extends JPanel {
 			this.jbRetirerDestination = new JButton("" + destination.getCodeD());
 			this.jbRetirerDestination.setBackground(Color.RED);
 			this.jbRetirerDestination.setFont(new Font("Arial", Font.PLAIN, 8));
-			this.jbRetirerDestination.addActionListener(new ActionRetirerDestination(aero, vue));
+			this.jbRetirerDestination.addActionListener(new ActionRetirerDestination(aero, vue, vueInfo));
 			
 			this.jpRetirerDestination.add(jlRetirerDestination, BorderLayout.NORTH);
 			this.jpRetirerDestination.add(jbRetirerDestination, BorderLayout.SOUTH);
@@ -57,5 +58,9 @@ public class VueRetirerDestination extends JPanel {
 				compteurX++;
 			}
 		}
+		c.gridx = 0;
+		c.gridy++;
+		c.gridwidth = 5;
+		this.add(vueInfo);
 	}
 }

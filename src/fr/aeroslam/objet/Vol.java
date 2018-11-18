@@ -1,6 +1,9 @@
 package fr.aeroslam.objet;
 
-import java.util.ArrayList;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
 
 public abstract class Vol {
 	
@@ -47,5 +50,14 @@ public abstract class Vol {
 	public void setAvion(Avion avion) {
 		this.avion = avion;
 	}
-
+	
+	public Element toXml() {
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement("destination");
+		root.addElement("code").addText("" + this.numVol);
+		root.addElement("date").addText(this.dateVol);
+		root.add(this.destination.toXml());
+		root.add(this.avion.toXml());
+		return root;
+	}
 }

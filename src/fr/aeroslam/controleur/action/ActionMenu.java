@@ -34,7 +34,7 @@ public class ActionMenu implements ActionListener {
 			break;
 		case "RetirerAvion":
 			vue.getContentPane().removeAll();
-			vue.getContentPane().add(new VueRetirerAvion(aero, vue)).revalidate();
+			vue.getContentPane().add(new VueRetirerAvion(aero, vue, vueInfo)).revalidate();
 			break;
 		//Passager
 		case "AjouterPassager":
@@ -47,7 +47,11 @@ public class ActionMenu implements ActionListener {
 			break;
 		case "RetirerPassager":
 			vue.getContentPane().removeAll();
-			vue.getContentPane().add(new VueRetirerPassager(aero, vue)).revalidate();
+			vue.getContentPane().add(new VueRetirerPassager(aero, vue, vueInfo)).revalidate();
+			break;
+		case "RetirerPassagerAVol":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueRetirerPassagerAVol(aero, vueInfo)).revalidate();
 			break;
 		//Destination
 		case "AjouterDestination":
@@ -60,7 +64,7 @@ public class ActionMenu implements ActionListener {
 			break;
 		case "RetirerDestination":
 			vue.getContentPane().removeAll();
-			vue.getContentPane().add(new VueRetirerDestination(aero, vue)).revalidate();
+			vue.getContentPane().add(new VueRetirerDestination(aero, vue, vueInfo)).revalidate();
 			break;
 		//Vol
 		case "CreerVol":
@@ -74,6 +78,22 @@ public class ActionMenu implements ActionListener {
 		case "AfficherVolCommercial":
 			vue.getContentPane().removeAll();
 			vue.getContentPane().add(new VueAfficherVolCommercial(aero)).revalidate();
+			break;
+		case "AjouterPassagerAVol":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueAjouterPassagerAVol(aero, vueInfo)).revalidate();
+			break;
+		case "RetirerVolCourrier":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueRetirerVolCourrier(aero, vue, vueInfo)).revalidate();
+			break;
+		case "RetirerVolCommercial":
+			vue.getContentPane().removeAll();
+			vue.getContentPane().add(new VueRetirerVolCommercial(aero, vue)).revalidate();
+			break;
+		//Fichier
+		case "ExportToXml":
+			aero.toXml();
 			break;
 		//X
 		case "X":

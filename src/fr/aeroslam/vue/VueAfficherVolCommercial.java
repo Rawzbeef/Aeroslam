@@ -9,10 +9,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import fr.aeroslam.objet.Aeroport;
-import fr.aeroslam.objet.Destination;
-import fr.aeroslam.objet.Vol;
 import fr.aeroslam.objet.VolCommercial;
-import fr.aeroslam.objet.VolCourrier;
 
 @SuppressWarnings("serial")
 public class VueAfficherVolCommercial extends JPanel {

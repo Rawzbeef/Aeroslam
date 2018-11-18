@@ -9,8 +9,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import fr.aeroslam.objet.Aeroport;
-import fr.aeroslam.objet.Destination;
-import fr.aeroslam.objet.Vol;
 import fr.aeroslam.objet.VolCourrier;
 
 @SuppressWarnings("serial")
@@ -29,6 +27,12 @@ public class VueAfficherVolCourrier extends JPanel {
 		for(int i = 0; i < lesVols.size(); i++) {
 			int code = lesVols.get(i).getNumVol();
 			String date = lesVols.get(i).getDateVol();
+			if(lesVols.get(i).getDestination() == null) {
+				System.out.println("TRUUUUUUEEE");
+			}
+			else{
+				System.out.println("FAAAALLLLLSSSEEE");
+			}
 			String destination = lesVols.get(i).getDestination().getVilleD() + " - " + lesVols.get(i).getDestination().getPaysD();
 			String avion = lesVols.get(i).getAvion().getCodeAvion() + " - " + lesVols.get(i).getAvion().getNomAvion();
 			int nbPlaceRestante = lesVols.get(i).getNbPlaceRestante();

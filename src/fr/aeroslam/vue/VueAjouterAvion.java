@@ -25,6 +25,7 @@ public class VueAjouterAvion extends JPanel {
 	private JButton jbAjouter;
 
 	public VueAjouterAvion(Aeroport aero, VueInfo vueInfo) {
+		vueInfo.reset();
 		this.jlNom = new JLabel("Nom :");
 		this.jtfNom = new JTextField();
 		this.jtfNom.setPreferredSize(new Dimension(150, 20));
