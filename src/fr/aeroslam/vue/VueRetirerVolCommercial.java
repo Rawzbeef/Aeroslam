@@ -14,10 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import fr.aeroslam.controleur.action.ActionRetirerVolCommercial;
-import fr.aeroslam.controleur.action.ActionRetirerVolCourrier;
 import fr.aeroslam.objet.Aeroport;
 import fr.aeroslam.objet.VolCommercial;
-import fr.aeroslam.objet.VolCourrier;
 
 @SuppressWarnings("serial")
 public class VueRetirerVolCommercial extends JPanel {

@@ -4,20 +4,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
-
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import fr.aeroslam.controleur.action.ActionAjoutPassagerAVol;
-import fr.aeroslam.controleur.action.ActionAjouterAvion;
 import fr.aeroslam.controleur.action.ActionRetirerPassagerAVol;
 import fr.aeroslam.objet.Aeroport;
-import fr.aeroslam.objet.Passager;
-import fr.aeroslam.objet.VolCourrier;
 
 @SuppressWarnings("serial")
 public class VueRetirerPassagerAVol extends JPanel {

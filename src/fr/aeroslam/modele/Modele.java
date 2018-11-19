@@ -24,7 +24,7 @@ public class Modele {
 	public static void connexionBD() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connexion = DriverManager.getConnection("jdbc:mysql://localhost/AeroSlam", "root", "");
+			connexion = DriverManager.getConnection("jdbc:mysql://172.16.203.100/2018gaspar", "vgaspar", "123456");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Le driver est introuvable.");
 		} catch (SQLException e) {
